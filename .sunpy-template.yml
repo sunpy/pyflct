@@ -1,0 +1,12 @@
+default_context:
+  package_name: pyflct
+  module_name: pyflct
+  short_description: A Python wrapper for Fourier Local Correlation Tracking.
+  author_name: The SunPy Developers
+  author_email: sunpy@googlegroups.com
+  license: GNU GPL v3+
+  project_url: https://sunpy.org
+  github_repo: sunpy/pyflct
+  minimum_python_version: 3.6
+  use_compiled_extensions: y
+  include_example_code: n
