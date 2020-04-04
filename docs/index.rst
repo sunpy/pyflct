@@ -21,7 +21,8 @@ Reference/API
 =============
 
 .. automodapi:: pyflct.flct
-  :noheading:
+  :no-main-docstr:
+  :no-heading:
 
 .. automodapi:: pyflct.utils
-  :noheading:
+  :no-heading:
