@@ -1,4 +1,3 @@
-# Licensed under GNU Lesser General Public License, version 2.1 - see licenses/LICENSE_FLCT.rst
 # cython: language_level=3
 import os
 import numpy as np
