@@ -2,11 +2,6 @@
 pyflct Documentation
 ********************
 
-.. toctree::
-   :maxdepth: 2
-
-   whatsnew/index
-
 This is the documentation for pyflct.
 
 pyflct contains routines which can be used to perform Fourier Local Correlation Tracking (FLCT).
@@ -25,4 +20,8 @@ The following papers are references for the FLCT algorithm:
 Reference/API
 =============
 
-.. automodapi:: pyflct
+.. automodapi:: pyflct.flct
+  :noheading:
+
+.. automodapi:: pyflct.utils
+  :noheading:
