@@ -17,12 +17,9 @@ The following papers are references for the FLCT algorithm:
 .. note::
     The FLCT C source is licensed under the GNU Lesser General Public License, version 2.1, see ``cextern/COPYRIGHT``.
 
-Reference/API
-=============
 
-.. automodapi:: pyflct.flct
-  :no-main-docstr:
-  :no-heading:
+.. toctree::
+   :maxdepth: 2
 
-.. automodapi:: pyflct.utils
-  :no-heading:
+   whatsnew/index
+   pyflct
