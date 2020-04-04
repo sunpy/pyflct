@@ -26,9 +26,9 @@ def read_2_images(filename, order="row"):
     ----------
     filename : `str`
         The name of ``dat`` file.
-    order : {"row" | "column"}
+    order : {"row" | "column"}, optional
         The order in which the array elements are stored that is whether they are stored as row
-        major or column major.
+        major or column major. Defaults to "row".
 
     Returns
     -------
@@ -72,9 +72,9 @@ def read_3_images(filename, order="row"):
     ----------
     filename : `str`
         The name of ``dat`` file.
-    order : {"row" | "column"}
+    order : {"row" | "column"}, optional
         The order in which the array elements are stored that is whether they are stored as row
-        major or column major.
+        major or column major. Defaults to "row".
 
     Returns
     -------
@@ -117,9 +117,9 @@ def write_2_images(filename, array1, array2, order="row"):
         The first array to be stored.
     array2 : `numpy.ndarray`
         The second array to be stored.
-    order : {"row" | "column"}
+    order : {"row" | "column"}, optional
         The order in which the array elements are stored that is whether they are stored as row
-        major or column major.
+        major or column major. Defaults to "row".
     """
 
     # Checking whether the C extension is correctly built.
@@ -156,9 +156,9 @@ def write_3_images(filename, array1, array2, array3, order="row"):
         The second array to be stored.
     array3 : `numpy.ndarray`
         The third array to be stored.
-    order : {"row" | "column"}
+    order : {"row" | "column"}, optional
         The order in which the array elements are stored that is whether they are stored as row
-        major or column major.
+        major or column major. Defaults to "row".
     """
 
     # Checking whether the C extension is correctly built.

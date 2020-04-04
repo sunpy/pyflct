@@ -89,7 +89,7 @@ def flct(
         The user must experiment to determine best choice of `sigma`.
         If `sigma` is set to 0, only single values of shifts are returned.
         These values correspond to the overall shifts between the two images.
-    order : {"row" | "column"}
+    order : {"row" | "column"}, optional
         The order in which the array elements are stored that is whether they are stored as row
         major or column major.
         Defaults to `row`.
@@ -154,7 +154,7 @@ def flct(
     * `FLCT software package <http://cgem.ssl.berkeley.edu/cgi-bin/cgem/FLCT/home>`__.
     * Welsch et al, ApJ 610, 1148, (2004)
     * Fisher & Welsch, PASP 383, 373, (2008)
-    * Fisher et al. ("The PDFI_SS Electric Field Inversion Software", in prep)
+    * Fisher et al., ApJS, accepted (2020)
     """
 
     # Checking whether the C extension is correctly built.

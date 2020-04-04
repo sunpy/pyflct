@@ -6,7 +6,7 @@
        This software is based on the concepts described in Welsch & Fisher
        (2008, PASP Conf. Series 383, 373), with updates described in
        Fisher et al. 2019, "The PDFI_SS Electric Field Inversion Software",
-       in prep.
+       arXiv:1912.08301 .
        If you use the software in a scientific
        publication, the authors would appreciate a citation to these papers
        and any future papers describing updates to the methods.
@@ -26,7 +26,7 @@
        59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-# include "flctsubs.h"
+# include <flctsubs.h>
 
 void flct_f77__(i4 * transp, double * f1, double * f2, i4 * nx, i4 * ny,
      double * deltat, double * deltas, double * sigma, double * vx,
