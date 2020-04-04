@@ -1,16 +1,16 @@
 pyflct Documentation
 --------------------
 
-This is the documentation for pyflct.
-
 .. toctree::
    :maxdepth: 2
 
    whatsnew/index
 
-This package contains routines which can be used to perform Fourier Local Correlation Tracking.
-Using a C-based implementation of the FLCT algorithm developed by George H. Fisher and Brian T. Welsch, who we would like to thank for letting us it create pyflct.
-The C code can be `found here <http://cgem.ssl.berkeley.edu/cgi-bin/cgem/FLCT/home>`__.
+This is the documentation for pyflct.
+
+pyflct contains routines which can be used to perform Fourier Local Correlation Tracking (FLCT).
+Wrapping a C-based implementation of the FLCT algorithm developed by George H. Fisher and Brian T. Welsch (who we would like to thank for letting us include it).
+`The C source code can be found here <http://cgem.ssl.berkeley.edu/cgi-bin/cgem/FLCT/home>`__.
 
 The following papers are references for the FLCT algorithm:
 
