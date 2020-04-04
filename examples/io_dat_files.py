@@ -3,13 +3,13 @@
 Input/Output of dat files for FLCT
 ==================================
 
-This example demostrates the use of functions in `sunkit_image.flct`
+This example demostrates the use of functions in `pyflct.flct`
 to read and write arrays to binary ``dat`` files.
 """
 
 import numpy as np
 
-import sunkit_image.flct as flct
+import pyflct as flct
 
 ###########################################################################
 # We will create three arrays which we will save out to a ``dat`` file.
@@ -32,10 +32,10 @@ flct.write_2_images("two.dat", a, b)
 flct.write_3_images("three.dat", a, b, c)
 
 ###########################################################################
-# We can get back these arrays by using the read functions in `sunkit_image.flct`
+# We can get back these arrays by using the read functions in `pyflct.flct`
 # It is to be noted that these read functions can only read ``dat``
-# files, the ones which were written using `~sunkit_image.flct.write_2_images`,
-# `~sunkit_image.flct.read_3_images` and the IDL IO routines as given on the
+# files, the ones which were written using `~pyflct.flct.write_2_images`,
+# `~pyflct.flct.read_3_images` and the IDL IO routines as given on the
 # FLCT `website <http://cgem.ssl.berkeley.edu/cgi-bin/cgem/FLCT/dir?ci=tip>`__.
 
 # Reading two arrays from a dat file

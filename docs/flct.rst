@@ -12,7 +12,7 @@ The following papers are references for the FLCT algorithm:
 * Fisher et al. ("The PDFI_SS Electric Field Inversion Software", in prep)
 
 .. note::
-    The FLCT is licensed under the GNU Lesser General Public License, version 2.1, see ``licenses/LICENSE_FLCT.rst``.
+    The FLCT is licensed under the GNU Lesser General Public License, version 2.1, see ``cextern/COPYRIGHT``.
 
-.. automodapi:: sunkit_image.flct
+.. automodapi:: pyflct
     :no-inheritance-diagram:

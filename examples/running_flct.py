@@ -4,20 +4,18 @@ Fourier Local Correlation Tracking
 ===================================
 
 This example applies Fourier Local Correlation Tracking (FLCT)
-to a set of two arrays using `~sunkit_image.flct.flct`.
+to a set of two arrays using `~pyflct.flct.flct`.
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-import sunkit_image.flct as flct
+import pyflct.flct as flct
 
 ###########################################################################
 # This examples demonstrates how to find the 2D velocity flow field.
 # It has three parts all of which depicts motion of the object in a dummy
 # image in some particular directions.
-
-#############################################################################
 # First we plot the velocity field when the image moves in positive ``X`` direction.
 
 # Creating the input arrays

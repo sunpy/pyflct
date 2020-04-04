@@ -5,7 +5,7 @@ import numpy as np
 cimport numpy as np
 from cython cimport view
 
-cdef extern from "./flctsubs.h":
+cdef extern from "../cextern/flctsubs.h":
     int flct (int transp, double * f1, double * f2, int nx, int ny, double deltat,
         double deltas, double sigma, double * vx, double * vy, double * vm,
         double thresh, int absflag, int filter, double kr, int skip,

@@ -25,7 +25,7 @@
        or write to the Free Software Foundation, Inc.,
        59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-# include "flctsubs.h"
+# include "../cextern/flctsubs.h"
 
 i4 read3images (char *fname, i4 * nx, i4 * ny, double **arr, double **barr,
 	     double **carr, i4 transp);

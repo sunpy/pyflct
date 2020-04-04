@@ -5,11 +5,11 @@ import fnmatch
 
 from astropy.utils.data import get_pkg_data_filename
 
-import sunkit_image
+import pyflct
 
 __all__ = ["rootdir", "file_list", "get_test_filepath", "test_data_filenames"]
 
-rootdir = os.path.join(os.path.dirname(sunkit_image.__file__), "data")
+rootdir = os.path.join(os.path.dirname(pyflct.__file__), "data")
 file_list = glob.glob(os.path.join(rootdir, "*.[!p]*"))
 
 
@@ -31,9 +31,9 @@ def get_test_filepath(filename, **kwargs):
     -----
 
     This is a wrapper around `~astropy.utils.data.get_pkg_data_filename` which
-    sets the ``package`` kwarg to be ``sunkit_image.data.test``.
+    sets the ``package`` kwarg to be ``pyflct.data.test``.
     """
-    return get_pkg_data_filename(filename, package="sunkit_image.data.test", **kwargs)
+    return get_pkg_data_filename(filename, package="pyflct.data.test", **kwargs)
 
 
 def test_data_filenames():

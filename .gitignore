@@ -151,3 +151,5 @@ pyflct/version.py
 htmlcov/
 .history
 .vscode
+pyflct/_compiler.c
+pyflct/pyflct.c

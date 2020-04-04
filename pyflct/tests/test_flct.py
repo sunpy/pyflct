@@ -4,8 +4,8 @@ import sys
 import numpy as np
 import pytest
 
-import sunkit_image.data.test as data
-import sunkit_image.flct as flct
+import pyflct.data.test as data
+import pyflct as flct
 
 # We skip this file as the extension is not built on windows.
 if sys.platform.startswith("win"):

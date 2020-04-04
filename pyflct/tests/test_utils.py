@@ -4,7 +4,7 @@ import sys
 import numpy as np
 import pytest
 
-from sunkit_image.flct.utils import *
+from pyflct.utils import *
 
 # We skip this file as the extension is not built on windows.
 if sys.platform.startswith("win"):
@@ -23,7 +23,6 @@ def arrays_test():
 
 
 def test_two_read_write(arrays_test):
-
     """
     This test is written to veify that the wrapped function is able to
     correctly write and read two numpy arrays.
@@ -80,7 +79,6 @@ def test_two_read_write(arrays_test):
 
 
 def test_three_read_write(arrays_test):
-
     """
     This test is written to verify that the wrapped function is able to
     correctly write and read three numpy arrays.
@@ -139,7 +137,6 @@ def test_three_read_write(arrays_test):
 
 
 def test_swaps(arrays_test):
-
     """
     This series of checks are meant to check whether an array in column major
     order can be converted back to row major order.

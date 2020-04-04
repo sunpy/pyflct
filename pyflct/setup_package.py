@@ -25,4 +25,4 @@ def get_extensions():
     else:
         cfg["extra_compile_args"].extend(["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"])
 
-    return [Extension("sunkit_image.flct._pyflct", **cfg)]
+    return [Extension("pyflct._pyflct", **cfg)]
