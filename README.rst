@@ -6,23 +6,53 @@ pyflct: A Python wrapper for Fourier Local Correlation Tracking.
     :target: http://www.sunpy.org
     :alt: Powered by SunPy Badge
 
-**Please be aware that we do not support Windows at this current time.**
+**Please be aware that we do not support Windows at the current time.**
 
 Installing
 ==========
 
 If you want to install this in a work environment, please find the instructions in our documentation.
 
+
+Getting Help
+============
+
+Stop by our chat room `#sunpy:matrix.org`_ if you have any questions.
+
 Contributing
 ============
 
-INSTALL GDB?!
-extesion_helpers to do build in place
-pi install -e has t obe run befreo setup.py build_ext --inplace
-Development
+If you would like to get involved, check out the `Developer’s Guide`_ section of the SunPy docs.
+Help is always welcome so let us know what you like to work on, or check out the `issues page`_ for the list of known outstanding items.
+For more information on general contributing, please read our `contributing guide`_.
+
+If you want help develop pyflct you will need to install it from GitHub.
+The best way to do this is to create a new python virtual environment (of your choice) and then fork this repository.
+
+Then::
+
+    $ git clone https://github.com/<username>/pyflct.git
+    $ cd pyflct
+    $ pip install -e .
+
+You will need `extension_helpers` installed and the FFTW3 development library installed.
+
+Code of Conduct
+===============
+
+When you are interacting with the SunPy community you are asked to follow our `Code of Conduct`_.
 
 License
 =======
 
 This project is Copyright (c) The SunPy Developers and licensed under the terms of the GNU GPL v3+ license.
-This package is based upon e `Openastronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`__ which is licensed under the BSD 3-clause licence.
+This package is based upon the `Openastronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`__ which is licensed under the BSD 3-clause licence.
+
+.. _installation guide: https://docs.sunpy.org/en/stable/guide/installation/index.html
+.. _SunPy Matrix Channel: https://openastronomy.riot.im/#/room/#sunpy:openastronomy.org
+.. _SunPy mailing list: https://groups.google.com/forum/#!forum/sunpy
+.. _`Developer’s Guide`: https://docs.sunpy.org/en/latest/dev_guide/index.html
+.. _`#sunpy:matrix.org`: https://riot.im/app/#/room/#sunpy:matrix.org
+.. _issues page: https://github.com/sunpy/pyflct/issues
+.. _contributing guide: https://docs.sunpy.org/en/stable/dev_guide/newcomers.html#newcomers
+.. _Code of Conduct: https://docs.sunpy.org/en/stable/coc.html
