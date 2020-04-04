@@ -7,6 +7,7 @@ pyflct: A Python wrapper for Fourier Local Correlation Tracking.
     :alt: Powered by SunPy Badge
 
 **Please be aware that we do not support Windows at the current time.**
+**Support for Python 3.6 or above only**
 
 Installing
 ==========
@@ -34,7 +35,13 @@ Then::
     $ cd pyflct
     $ pip install -e .
 
-You will need `extension_helpers` installed and the FFTW3 development library installed.
+You will to pip install `extension_helpers` and install your operating system's FFTW3 development library.
+
+You might need to also run::
+
+    $ python setup.py build_ext --inplace
+
+to build the C extension in place.
 
 Code of Conduct
 ===============
@@ -47,11 +54,8 @@ License
 This project is Copyright (c) The SunPy Developers and licensed under the terms of the GNU GPL v3+ license.
 This package is based upon the `Openastronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`__ which is licensed under the BSD 3-clause licence.
 
-.. _installation guide: https://docs.sunpy.org/en/stable/guide/installation/index.html
-.. _SunPy Matrix Channel: https://openastronomy.riot.im/#/room/#sunpy:openastronomy.org
-.. _SunPy mailing list: https://groups.google.com/forum/#!forum/sunpy
 .. _`Developer’s Guide`: https://docs.sunpy.org/en/latest/dev_guide/index.html
 .. _`#sunpy:matrix.org`: https://riot.im/app/#/room/#sunpy:matrix.org
 .. _issues page: https://github.com/sunpy/pyflct/issues
-.. _contributing guide: https://docs.sunpy.org/en/stable/dev_guide/newcomers.html#newcomers
+.. _contributing guide: https://docs.sunpy.org/en/latest/dev_guide/newcomers.html#newcomers
 .. _Code of Conduct: https://docs.sunpy.org/en/stable/coc.html
