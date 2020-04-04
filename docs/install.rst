@@ -12,9 +12,9 @@ Note we do not support Windows the current time.
 Installation from PyPI may also work on other systems when the FFTW libraries
 are available, but other platforms have not been tested.
 
-Hopefully users of the `conda <https://conda.io/docs/>`__ package manager can install from the `conda-forge <https://conda-forge.org/>`__ channel via:
+Hopefully users of the `conda <https://conda.io/docs/>`__ package manager can install from the `conda-forge <https://conda-forge.org/>`__ channel via::
 
-    conda install -c conda-forge pyflct
+    $ conda install -c conda-forge pyflct
 
 in the near future.
 
