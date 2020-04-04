@@ -4,8 +4,8 @@ import sys
 import numpy as np
 import pytest
 
-import pyflct.data.test as data
 import pyflct as flct
+import pyflct.data.test as data
 
 # We skip this file as the extension is not built on windows.
 if sys.platform.startswith("win"):

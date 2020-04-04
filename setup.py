@@ -4,9 +4,9 @@
 import os
 from itertools import chain
 
+from extension_helpers import get_extensions
 from setuptools import setup
 from setuptools.config import read_configuration
-from extension_helpers import get_extensions
 
 ################################################################################
 # Programmatically generate some extras combos.

@@ -6,16 +6,21 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 # flake8: NOQA
+# -- Project information -----------------------------------------------------
+import os
 import sys
+
+from pyflct import __version__
+
 try:
     from sphinx_astropy.conf.v1 import *
 except ImportError:
-    print("ERROR: the documentation requires the sphinx-astropy package to be installed")
+    print(
+        "ERROR: the documentation requires the sphinx-astropy package to be installed"
+    )
     sys.exit(1)
 
-# -- Project information -----------------------------------------------------
-import os
-from pyflct import __version__
+
 project = "pyflct"
 copyright = "2020, The SunPy Developers"
 author = "The SunPy Developers"
@@ -27,6 +32,7 @@ is_development = ".dev" in __version__
 
 try:
     import sphinx_gallery
+
     sphinx_gallery.__version__
     if on_rtd and os.environ.get("READTHEDOCS_PROJECT").lower() != "sunpy":
         # Gallery takes too long on RTD to build unless you have extra build time.
