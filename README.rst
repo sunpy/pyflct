@@ -5,6 +5,8 @@ A Python wrapper for Fourier Local Correlation Tracking.
     :target: http://www.sunpy.org
     :alt: Powered by SunPy Badge
 
+**Please be aware that we do not support windows at this current time.**
+
 License
 -------
 

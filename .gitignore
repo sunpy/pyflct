@@ -149,3 +149,5 @@ docs/api
 docs/whatsnew/latest_changelog.txt
 pyflct/version.py
 htmlcov/
+.history
+.vscode
