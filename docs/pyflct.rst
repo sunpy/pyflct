@@ -1,6 +1,6 @@
-=============
-Reference/API
-=============
+===
+API
+===
 
 .. automodapi:: pyflct
   :no-main-docstr:

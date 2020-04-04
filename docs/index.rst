@@ -19,7 +19,8 @@ The following papers are references for the FLCT algorithm:
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-   whatsnew/index
    pyflct
+   generated/gallery/index
+   whatsnew/index
