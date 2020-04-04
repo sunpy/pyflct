@@ -13,7 +13,6 @@ Installing
 
 If you want to install this in a work environment, please find the instructions in our documentation.
 
-
 Getting Help
 ============
 

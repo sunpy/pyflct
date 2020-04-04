@@ -17,10 +17,10 @@ The following papers are references for the FLCT algorithm:
 .. note::
     The FLCT C source is licensed under the GNU Lesser General Public License, version 2.1, see ``cextern/COPYRIGHT``.
 
-
 .. toctree::
    :maxdepth: 1
 
+   install
    pyflct
    generated/gallery/index
    whatsnew/index
