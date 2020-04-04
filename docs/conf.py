@@ -5,19 +5,43 @@
 # This file does only contain a selection of the most common options. For a
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
-
+# flake8: NOQA
+import sys
+try:
+    from sphinx_astropy.conf.v1 import *
+except ImportError:
+    print("ERROR: the documentation requires the sphinx-astropy package to be installed")
+    sys.exit(1)
 
 # -- Project information -----------------------------------------------------
-
+import os
+from pyflct import __version__
 project = "pyflct"
 copyright = "2020, The SunPy Developers"
 author = "The SunPy Developers"
 
 # The full version, including alpha/beta/rc tags
-from pyflct import __version__
 
 release = __version__
 is_development = ".dev" in __version__
+
+try:
+    import sphinx_gallery
+    sphinx_gallery.__version__
+    if on_rtd and os.environ.get("READTHEDOCS_PROJECT").lower() != "sunpy":
+        # Gallery takes too long on RTD to build unless you have extra build time.
+        has_sphinx_gallery = False
+    else:
+        has_sphinx_gallery = True
+except ImportError:
+    has_sphinx_gallery = False
+
+if on_rtd:
+    os.environ["SUNPY_CONFIGDIR"] = "/home/docs/"
+    os.environ["HOME"] = "/home/docs/"
+    os.environ["LANG"] = "C"
+    os.environ["LC_ALL"] = "C"
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -123,3 +147,32 @@ except Exception as e:
     print(f"Failed to add changelog to docs with error {e}.")
 # Make sure the file exists or else sphinx will complain.
 open(target_file, "a").close()
+
+# -- Options for the Sphinx gallery -------------------------------------------
+if has_sphinx_gallery:
+    import pathlib
+
+    extensions += ["sphinx_gallery.gen_gallery"]
+    path = pathlib.Path.cwd()
+    example_dir = path.parent.joinpath("examples")
+    sphinx_gallery_conf = {
+        "backreferences_dir": str(path.joinpath("generated", "modules")),
+        "filename_pattern": "^((?!skip_).)*$",
+        "examples_dirs": example_dir,
+        "gallery_dirs": path.joinpath("generated", "gallery"),
+        "default_thumb_file": path.joinpath("logo", "sunpy_icon_128x128.png"),
+        "abort_on_example_error": False,
+        "plot_gallery": True,
+    }
+
+
+def setup(app):
+    if not has_sphinx_gallery:
+        import warnings
+
+        warnings.warn(
+            "The sphinx_gallery extension is not installed, so the "
+            "gallery will not be built. You will probably see "
+            "additional warnings about undefined references due "
+            "to this."
+        )

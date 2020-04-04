@@ -155,3 +155,5 @@ htmlcov/
 *pyflct.c*
 *version.py*
 *flct.c*
+examples/three.dat
+examples/two.dat
