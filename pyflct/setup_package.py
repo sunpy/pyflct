@@ -19,7 +19,7 @@ def get_extensions():
     cfg["include_dirs"].append(os.path.join('cextern'))
     cfg["sources"].extend(sorted(glob(os.path.join('cextern', "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
-    cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "pyflct.pyx"))))
+    cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
     cfg["libraries"].extend(["m", "fftw3"])
 
     if get_compiler() == "msvc":
@@ -27,4 +27,4 @@ def get_extensions():
     else:
         cfg["extra_compile_args"].extend(["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"])
 
-    return [Extension("pyflct._pyflct", **cfg)]
+    return [Extension("pyflct._flct", **cfg)]

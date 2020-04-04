@@ -154,3 +154,4 @@ htmlcov/
 *_compiler.c*
 *pyflct.c*
 *version.py*
+*flct.c*

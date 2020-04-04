@@ -12,4 +12,4 @@ prune build
 prune docs/_build
 prune docs/api
 
-global-exclude *.pyc *.o _compiler.c _pyflct* pyflct.c compiler_version*
+global-exclude *.pyc *.o _compiler.c _flct* flct.c compiler_version*

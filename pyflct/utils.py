@@ -1,5 +1,5 @@
 try:
-    import _pyflct
+    from pyflct import _flct as _pyflct
 except ImportError:
     _pyflct = None
 
