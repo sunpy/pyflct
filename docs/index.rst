@@ -5,6 +5,7 @@ This is the documentation for pyflct.
 
 .. toctree::
    :maxdepth: 2
+
    whatsnew/index
 
 This package contains routines which can be used to perform Fourier Local Correlation Tracking.
