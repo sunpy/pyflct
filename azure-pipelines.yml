@@ -33,6 +33,11 @@ jobs:
   parameters:
     submodules: false
     coverage: codecov
+    libraries:
+      apt:
+        - libfftw3-dev
+      brew:
+        - fftw
     envs:
       - macos: py36
         name: py36_test
@@ -46,7 +51,6 @@ jobs:
       - linux: codestyle
         name: codestyle
 
-
 # On branches which aren't master, and not Pull Requests, build the wheels but only upload them on tags
 - ${{ if and(ne(variables['Build.Reason'], 'PullRequest'), not(contains(variables['Build.SourceBranch'], 'master'))) }}:
   - template: publish.yml@OpenAstronomy
@@ -54,7 +58,6 @@ jobs:
       # Only Upload to PyPI on tags
       ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
         pypi_connection_name : 'PyPI'
-
       test_extras: 'test'
       test_command: 'pytest -p no:warnings --doctest-rst -m "not figure" --pyargs pyflct'
       submodules: false

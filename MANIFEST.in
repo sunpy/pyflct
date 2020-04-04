@@ -6,12 +6,10 @@ include pyproject.toml
 
 recursive-include pyflct *.pyx *.c *.pxd
 recursive-include docs *
-recursive-include licenses *
 recursive-include cextern *
-recursive-include scripts *
 
 prune build
 prune docs/_build
 prune docs/api
 
-global-exclude *.pyc *.o
+global-exclude *.pyc *.o _compiler.c _flct* flct.c compiler_version*

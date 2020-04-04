@@ -18,11 +18,11 @@ merge-check: &merge-check
       git checkout -qf pr/$CIRCLE_PR_NUMBER/merge
     fi
 
-apt-run: &apt-install
+apt-install: &apt-install
   name: Install apt packages
   command: |
     apt update
-    apt install -y graphviz build-essential
+    apt install -y graphviz build-essential libfftw3-dev
 
 version: 2
 jobs:
@@ -30,8 +30,8 @@ jobs:
     docker:
       - image: continuumio/miniconda3
     steps:
-      - checkout
       - run: *no-backports
+      - checkout
       - run: *skip-check
       - run: *merge-check
       - run: pip install -U pep517
@@ -43,8 +43,8 @@ jobs:
     docker:
       - image: continuumio/miniconda3
     steps:
-      - checkout
       - run: *no-backports
+      - checkout
       - run: *skip-check
       - run: *merge-check
       - run: *apt-install

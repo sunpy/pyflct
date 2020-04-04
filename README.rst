@@ -1,48 +1,61 @@
-A Python wrapper for Fourier Local Correlation Tracking.
---------------------------------------------------------
+****************************************************************
+pyflct: A Python wrapper for Fourier Local Correlation Tracking.
+****************************************************************
 
 .. image:: http://img.shields.io/badge/powered%20by-SunPy-orange.svg?style=flat
     :target: http://www.sunpy.org
     :alt: Powered by SunPy Badge
 
-License
--------
+**Please be aware that we do not support Windows at the current time.**
+**Support for Python 3.6 or above only**
 
-This project is Copyright (c) The SunPy Developers and licensed under
-the terms of the GNU GPL v3+ license. This package is based upon
-the `Openastronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`_
-which is licensed under the BSD 3-clause licence. See the licenses folder for
-more information.
+Installing
+==========
 
+If you want to install this in a work environment, please find the instructions in our documentation.
+
+Getting Help
+============
+
+Stop by our chat room `#sunpy:matrix.org`_ if you have any questions.
 
 Contributing
-------------
+============
 
-We love contributions! pyflct is open source,
-built on open source, and we'd love to have you hang out in our community.
+If you would like to get involved, check out the `Developer’s Guide`_ section of the SunPy docs.
+Help is always welcome so let us know what you like to work on, or check out the `issues page`_ for the list of known outstanding items.
+For more information on general contributing, please read our `contributing guide`_.
 
-**Imposter syndrome disclaimer**: We want your help. No, really.
+If you want help develop pyflct you will need to install it from GitHub.
+The best way to do this is to create a new python virtual environment (of your choice) and then fork this repository.
 
-There may be a little voice inside your head that is telling you that you're not
-ready to be an open source contributor; that your skills aren't nearly good
-enough to contribute. What could you possibly offer a project like this one?
+Then::
 
-We assure you - the little voice in your head is wrong. If you can write code at
-all, you can contribute code to open source. Contributing to open source
-projects is a fantastic way to advance one's coding skills. Writing perfect code
-isn't the measure of a good developer (that would disqualify all of us!); it's
-trying to create something, making mistakes, and learning from those
-mistakes. That's how we all improve, and we are happy to help others learn.
+    $ git clone https://github.com/<username>/pyflct.git
+    $ cd pyflct
+    $ pip install -e .
 
-Being an open source contributor doesn't just mean writing code, either. You can
-help out by writing documentation, tests, or even giving feedback about the
-project (and yes - that includes giving feedback about the contribution
-process). Some of these contributions may be the most valuable to the project as
-a whole, because you're coming to the project with fresh eyes, so you can see
-the errors and assumptions that seasoned contributors have glossed over.
+You will to pip install `extension_helpers` and install your operating system's FFTW3 development library.
 
-Note: This disclaimer was originally written by
-`Adrienne Lowe <https://github.com/adriennefriend>`_ for a
-`PyCon talk <https://www.youtube.com/watch?v=6Uj746j9Heo>`_, and was adapted by
-pyflct based on its use in the README file for the
-`MetPy project <https://github.com/Unidata/MetPy>`_.
+You might need to also run::
+
+    $ python setup.py build_ext --inplace
+
+to build the C extension in place.
+
+Code of Conduct
+===============
+
+When you are interacting with the SunPy community you are asked to follow our `Code of Conduct`_.
+
+License
+=======
+
+This project is Copyright (c) The SunPy Developers and licensed under the terms of the GNU GPL v3+ license.
+This package is based upon the `Openastronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`__ which is licensed under the BSD 3-clause licence.
+
+.. _`Developer’s Guide`: https://docs.sunpy.org/en/latest/dev_guide/index.html
+.. _`#sunpy:matrix.org`: https://riot.im/app/#/room/#sunpy:matrix.org
+.. _issues page: https://github.com/sunpy/pyflct/issues
+.. _contributing guide: https://docs.sunpy.org/en/latest/dev_guide/newcomers.html#newcomers
+.. _Code of Conduct: https://docs.sunpy.org/en/stable/coc.html
