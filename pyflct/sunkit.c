@@ -1,34 +1,34 @@
 /*
-       FLCT Local Correlation Tracking software
-       http://cgem.ssl.berkeley.edu/~fisher/public/software/FLCT
-       Copyright (C) 2007-2019, Regents of the University of California
+    FLCT Local Correlation Tracking software
+    http://cgem.ssl.berkeley.edu/~fisher/public/software/FLCT
+    Copyright (C) 2007-2019, Regents of the University of California
 
-       This software is based on the concepts described in Welsch & Fisher
-       (2008, PASP Conf. Series 383, 373), with updates described in
-       Fisher et al. 2019, "The PDFI_SS Electric Field Inversion Software",
-       in prep.
-       If you use the software in a scientific
-       publication, the authors would appreciate a citation to these papers
-       and any future papers describing updates to the methods.
+    This software is based on the concepts described in Welsch & Fisher
+    (2008, PASP Conf. Series 383, 373), with updates described in
+    Fisher et al. 2019, "The PDFI_SS Electric Field Inversion Software",
+    in prep.
+    If you use the software in a scientific
+    publication, the authors would appreciate a citation to these papers
+    and any future papers describing updates to the methods.
 
-       This is free software; you can redistribute it and/or
-       modify it under the terms of the GNU Lesser General Public
-       License version 2.1 as published by the Free Software Foundation.
+    This is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License version 2.1 as published by the Free Software Foundation.
 
-       This software is distributed in the hope that it will be useful,
-       but WITHOUT ANY WARRANTY; without even the implied warranty of
-       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-       See the GNU Lesser General Public License for more details.
+    This software is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    See the GNU Lesser General Public License for more details.
 
-       To view the GNU Lesser General Public License visit
-       http://www.gnu.org/copyleft/lesser.html
-       or write to the Free Software Foundation, Inc.,
-       59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+    To view the GNU Lesser General Public License visit
+    http://www.gnu.org/copyleft/lesser.html
+    or write to the Free Software Foundation, Inc.,
+    59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 # include "sunkit.h"
 
 i4 read3images (char *fname, i4 * nx, i4 * ny, double **arr, double **barr,
-	     double **carr, i4 transp)
+         double **carr, i4 transp)
 /* Function to read array dims, create space for 2 double arrays, read them in.
  * Note the double pointer to the double precision * arrays in the calling
  * argument.  Note also these are referenced as pointers and returned to the
@@ -36,10 +36,10 @@ i4 read3images (char *fname, i4 * nx, i4 * ny, double **arr, double **barr,
 {
   FILE *f1;			/* pointer to input file */
   i4 newsize;			/* size of the new double prec. array to be
-				   read in =nx*ny */
+                   read in =nx*ny */
   i4 i, ier, ibe, ise, vcid;
   f4 *farr, *fbarr, *fcarr;
-  ibe = is_large_endian ();
+  ibe = is_large_endian();
   ise = 0;
   if (ibe == 0) ise = 1;	/* set small endian flag if not big  endian */
   f1 = fopen (fname, "rb");	/* open file for binary unformatted read */
@@ -77,7 +77,7 @@ i4 read3images (char *fname, i4 * nx, i4 * ny, double **arr, double **barr,
       byteswapflct ((void *) ny, 1, sizeof (i4));
     }
 /*
-	printf("\n\nnx,ny read in from file arr = %d,%d\n",*nx,*ny);
+    printf("\n\nnx,ny read in from file arr = %d,%d\n",*nx,*ny);
 */
   newsize = (*nx) * (*ny) * sizeof (double);	/* size of new double array */
 
@@ -95,7 +95,7 @@ i4 read3images (char *fname, i4 * nx, i4 * ny, double **arr, double **barr,
       exit (1);
     }
 /*
-	printf("%d bytes of memory now allocated for arr \n",newsize);
+    printf("%d bytes of memory now allocated for arr \n",newsize);
 */
 
   /* now read in the arr array */

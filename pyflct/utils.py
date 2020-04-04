@@ -1,5 +1,5 @@
 try:
-    from . import _pyflct
+    import pyflct._pyflct
 except ImportError:
     _pyflct = None
 
@@ -45,14 +45,14 @@ def read_2_images(filename, order="row"):
             "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
         )
 
-    if order is "row":
+    if order == "row":
         transp = 0
     else:
         transp = 1
 
     ier, a, b = _pyflct.read_two_images(filename, transp)
 
-    if ier is not 1:
+    if ier != 1:
         raise ValueError(
             "The file was not read correctly. Please check the file.")
 
@@ -92,14 +92,14 @@ def read_3_images(filename, order="row"):
             "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
         )
 
-    if order is "row":
+    if order == "row":
         transp = 0
     else:
         transp = 1
 
     ier, a, b, c = _pyflct.read_three_images(filename, transp)
 
-    if ier is not 1:
+    if ier != 1:
         raise ValueError(
             "The file was not read correctly. Please check the file.")
 
@@ -133,14 +133,14 @@ def write_2_images(filename, array1, array2, order="row"):
             "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
         )
 
-    if order is "row":
+    if order == "row":
         transp = 0
     else:
         transp = 1
 
     ier = _pyflct.write_two_images(filename, array1, array2, transp)
 
-    if ier is not 1:
+    if ier != 1:
         raise ValueError(
             "The file was not read correctly. Please check the file")
 
@@ -173,14 +173,14 @@ def write_3_images(filename, array1, array2, array3, order="row"):
             "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
         )
 
-    if order is "row":
+    if order == "row":
         transp = 0
     else:
         transp = 1
 
     ier = _pyflct.write_three_images(filename, array1, array2, array3, transp)
 
-    if ier is not 1:
+    if ier != 1:
         raise ValueError(
             "The file was not read correctly. Please check the file")
 

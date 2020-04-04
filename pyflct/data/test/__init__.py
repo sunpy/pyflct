@@ -3,37 +3,12 @@ import re
 import glob
 import fnmatch
 
-from astropy.utils.data import get_pkg_data_filename
-
 import pyflct
 
 __all__ = ["rootdir", "file_list", "get_test_filepath", "test_data_filenames"]
 
 rootdir = os.path.join(os.path.dirname(pyflct.__file__), "data")
 file_list = glob.glob(os.path.join(rootdir, "*.[!p]*"))
-
-
-def get_test_filepath(filename, **kwargs):
-    """
-    Return the full path to a test file in the ``data`` directory.
-
-    Parameters
-    ----------
-    filename : `str`
-        The name of the file inside the ``data`` directory.
-
-    Return
-    ------
-    filepath : `str`
-        The full path to the file.
-
-    Notes
-    -----
-
-    This is a wrapper around `~astropy.utils.data.get_pkg_data_filename` which
-    sets the ``package`` kwarg to be ``pyflct.data.test``.
-    """
-    return get_pkg_data_filename(filename, package="pyflct.data.test", **kwargs)
 
 
 def test_data_filenames():
@@ -58,3 +33,24 @@ def test_data_filenames():
         test_data_filenames_list.extend(files)
 
     return test_data_filenames_list
+
+
+def get_test_filepath(filename, **kwargs):
+    """
+    Return the full path to a test file in the ``data`` directory.
+
+    Parameters
+    ----------
+    filename : `str`
+        The name of the file inside the ``data`` directory.
+
+    Return
+    ------
+    filepath : `str`
+        The full path to the file.
+
+    Notes
+    -----
+    """
+    files = test_data_filenames()
+    return [s.endswith(filename) for s in files][0]

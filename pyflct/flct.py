@@ -1,12 +1,12 @@
 # Licensed under GNU Lesser General Public License, version 2.1 - see licenses/LICENSE_FLCT.rst
 import numpy as np
 
-from .utils import column_row_of_two
-
 try:
-    from . import _pyflct
+    import pyflct._pyflct
 except ImportError:
     _pyflct = None
+
+from .utils import column_row_of_two
 
 __all__ = ["flct"]
 
