@@ -2,7 +2,7 @@
 import numpy as np
 
 try:
-    import pyflct._pyflct
+    import _pyflct
 except ImportError:
     _pyflct = None
 
