@@ -53,8 +53,7 @@ def read_2_images(filename, order="row"):
     ier, a, b = _pyflct.read_two_images(filename, transp)
 
     if ier != 1:
-        raise ValueError(
-            "The file was not read correctly. Please check the file.")
+        raise ValueError("The file was not read correctly. Please check the file.")
 
     else:
         return a, b
@@ -100,8 +99,7 @@ def read_3_images(filename, order="row"):
     ier, a, b, c = _pyflct.read_three_images(filename, transp)
 
     if ier != 1:
-        raise ValueError(
-            "The file was not read correctly. Please check the file.")
+        raise ValueError("The file was not read correctly. Please check the file.")
 
     else:
         return a, b, c
@@ -141,8 +139,7 @@ def write_2_images(filename, array1, array2, order="row"):
     ier = _pyflct.write_two_images(filename, array1, array2, transp)
 
     if ier != 1:
-        raise ValueError(
-            "The file was not read correctly. Please check the file")
+        raise ValueError("The file was not read correctly. Please check the file")
 
 
 def write_3_images(filename, array1, array2, array3, order="row"):
@@ -181,8 +178,7 @@ def write_3_images(filename, array1, array2, array3, order="row"):
     ier = _pyflct.write_three_images(filename, array1, array2, array3, transp)
 
     if ier != 1:
-        raise ValueError(
-            "The file was not read correctly. Please check the file")
+        raise ValueError("The file was not read correctly. Please check the file")
 
 
 def column_row_of_two(array1, array2):

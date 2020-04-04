@@ -16,8 +16,8 @@ def get_extensions():
     cfg["include_dirs"].append(np.get_include())
     cfg["include_dirs"].append("/usr/include/")
     cfg["include_dirs"].append(os.path.join(sys.prefix, "include"))
-    cfg["include_dirs"].append(os.path.join('cextern'))
-    cfg["sources"].extend(sorted(glob(os.path.join('cextern', "*.c"))))
+    cfg["include_dirs"].append(os.path.join("cextern"))
+    cfg["sources"].extend(sorted(glob(os.path.join("cextern", "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
     cfg["libraries"].extend(["m", "fftw3"])
@@ -25,6 +25,8 @@ def get_extensions():
     if get_compiler() == "msvc":
         return list()
     else:
-        cfg["extra_compile_args"].extend(["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"])
+        cfg["extra_compile_args"].extend(
+            ["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"]
+        )
 
     return [Extension("pyflct._flct", **cfg)]

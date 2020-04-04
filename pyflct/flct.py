@@ -198,7 +198,8 @@ def flct(
 
         if np.abs(xoff) >= skip or np.abs(yoff) >= skip:
             raise ValueError(
-                "The absolute value of 'xoff' and 'yoff' must be less than skip.")
+                "The absolute value of 'xoff' and 'yoff' must be less than skip."
+            )
     else:
         skip = 0
 

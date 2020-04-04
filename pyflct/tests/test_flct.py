@@ -35,7 +35,6 @@ def images():
 
 @pytest.fixture
 def images_dat():
-
     # Getting filepath of the test data
     filepath1 = data.get_test_filepath("hashgauss.dat")
     arr, barr = flct.read_2_images(filepath1)
@@ -71,7 +70,9 @@ def outputs():
 
     # Since these CSV files were created by reading the dat file on FLCT website using the IDL IO
     # routines their order needs to be rectified.
-    expect_x, expect_y, expect_m = flct.column_row_of_three(expect_x, expect_y, expect_m)
+    expect_x, expect_y, expect_m = flct.column_row_of_three(
+        expect_x, expect_y, expect_m
+    )
 
     return (expect_x, expect_y, expect_m)
 
@@ -111,7 +112,10 @@ def test_flct_array(images, outputs):
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images[0], images[1], 1, 1, 5, kr=0.5, skip=1, xoff=4)
 
-    assert str(record.value) == "The absolute value of 'xoff' and 'yoff' must be less than skip."
+    assert (
+        str(record.value)
+        == "The absolute value of 'xoff' and 'yoff' must be less than skip."
+    )
 
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images[0], images[1], 1, 1, 5, kr=40)
@@ -156,7 +160,10 @@ def test_flct_dat(images_dat, outputs_dat):
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images_dat[0], images_dat[1], 1, 1, 5, kr=0.5, skip=1, xoff=4)
 
-    assert str(record.value) == "The absolute value of 'xoff' and 'yoff' must be less than skip."
+    assert (
+        str(record.value)
+        == "The absolute value of 'xoff' and 'yoff' must be less than skip."
+    )
 
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images_dat[0], images_dat[1], 1, 1, 5, kr=40)
@@ -199,5 +206,14 @@ def test_flct_optional(images_dat):
     )
 
     _ = flct.flct(
-        images_dat[0], images_dat[1], 1, 1, 0, interp=True, quiet=True, absflag=True, biascor=True, pc=True
+        images_dat[0],
+        images_dat[1],
+        1,
+        1,
+        0,
+        interp=True,
+        quiet=True,
+        absflag=True,
+        biascor=True,
+        pc=True,
     )
