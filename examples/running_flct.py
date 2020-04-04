@@ -4,13 +4,13 @@ Fourier Local Correlation Tracking
 ===================================
 
 This example applies Fourier Local Correlation Tracking (FLCT)
-to a set of two arrays using `~pyflct.flct.flct`.
+to a set of two arrays using `pyflct`.
 """
 
 import matplotlib.pyplot as plt
 import numpy as np
 
-import pyflct.flct as flct
+import pyflct
 
 ###########################################################################
 # This examples demonstrates how to find the 2D velocity flow field.
@@ -32,7 +32,7 @@ image2[0:3, 1:4] = 1
 # 1 second. The units of length of the side of a single pixel, ``deltas`` is
 # 1. The width of Gaussian used to weigh the subimages, ``sigma`` is taken to be 2.3.
 # Note you should experiment with the values of ``sigma`` to get the best results.
-vel_x, vel_y, vm = flct.flct(image1, image2, 1, 1, 2.3)
+vel_x, vel_y, vm = pyflct.flct(image1, image2, 1, 1, 2.3)
 
 ############################################################################
 # We will plot the 2D flow field what we get when the image have moved in positive ``X`` direction.
@@ -72,7 +72,7 @@ image2[1:4, 0:3] = 1
 ###########################################################################
 # Now we again apply FLCT to this new set of images using the same parameter values
 # as before.
-vel_x, vel_y, vm = flct.flct(image1, image2, 1, 1, 2.3)
+vel_x, vel_y, vm = pyflct.flct(image1, image2, 1, 1, 2.3)
 
 ############################################################################
 # We will plot the 2D flow field what we get when the image have moved in positive ``Y`` direction.
@@ -106,7 +106,7 @@ image2[1:4, 1:4] = 1
 
 ###########################################################################
 # We again apply FLCT with the similar settings as before to find the velocity field
-vel_x, vel_y, vm = flct.flct(image1, image2, 1, 1, 2.3)
+vel_x, vel_y, vm = pyflct.flct(image1, image2, 1, 1, 2.3)
 
 ############################################################################
 # We will plot the 2D flow field what we get when the image have moved in both directions.

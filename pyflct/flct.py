@@ -37,8 +37,8 @@ def flct(
     .. note::
 
         * In the references there are some dat files which can be used to test the FLCT code. The
-          best method to read those dat files is the `pyflct.flct.read_2_images` and
-          `pyflct.flct.read_3_images` as the arrays would automatically be read in row major
+          best method to read those dat files is the `pyflct.read_2_images` and
+          `pyflct.read_3_images` as the arrays would automatically be read in row major
           format.
         * If you use the IDL IO routines to get the input arrays from ``dat`` files,
           the IDL routines always read the binary files in the column major, but both Python and C,
