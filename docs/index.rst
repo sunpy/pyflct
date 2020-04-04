@@ -5,21 +5,20 @@ This is the documentation for pyflct.
 
 .. toctree::
    :maxdepth: 2
-
    whatsnew/index
-
 
 This package contains routines which can be used to perform Fourier Local Correlation Tracking.
 Using a C-based implementation of the FLCT algorithm developed by George H. Fisher and Brian T. Welsch, who we would like to thank for letting us it create pyflct.
 The C code can be `found here <http://cgem.ssl.berkeley.edu/cgi-bin/cgem/FLCT/home>`__.
+
 The following papers are references for the FLCT algorithm:
 
-* `Welsch et al, ApJ 610, 1148, (2004) <https://iopscience.iop.org/article/10.1086/421767>`__
+* `Welsch et al., ApJ 610, 1148, (2004) <https://iopscience.iop.org/article/10.1086/421767>`__
 * `Fisher & Welsch, PASP 383, 373, (2008) <https://arxiv.org/abs/0712.4289>`__
-* Fisher et al. ("The PDFI_SS Electric Field Inversion Software", in prep)
+* `Fisher et al., ApJS, accepted (2020) <https://arxiv.org/abs/0712.4289>`__
 
 .. note::
-    The FLCT is licensed under the GNU Lesser General Public License, version 2.1, see ``cextern/COPYRIGHT``.
+    The FLCT C source is licensed under the GNU Lesser General Public License, version 2.1, see ``cextern/COPYRIGHT``.
 
 Reference/API
 =============
