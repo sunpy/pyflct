@@ -35,9 +35,10 @@ Then::
     $ cd pyflct
     $ pip install -e .
 
-You will to pip install `extension_helpers` and install your operating system's FFTW3 development library.
+You will need to install your operating system's FFTW3 development library.
+You might need to `pip install extension_helpers` if pip complains about it being missing.
 
-You might need to also run::
+You can run::
 
     $ python setup.py build_ext --inplace
 
