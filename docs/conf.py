@@ -1,26 +1,14 @@
-# -*- coding: utf-8 -*-
-#
 # Configuration file for the Sphinx documentation builder.
 #
 # This file does only contain a selection of the most common options. For a
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 # flake8: NOQA
+
 # -- Project information -----------------------------------------------------
 import os
-import sys
-
+from pathlib import Path
 from pyflct import __version__
-
-try:
-    from sphinx_astropy.conf.v1 import *
-except ImportError:
-    print(
-        "ERROR: the documentation requires the sphinx-astropy package to be installed"
-    )
-    sys.exit(1)
-
-
 project = "pyflct"
 copyright = "2020, The SunPy Developers"
 author = "The SunPy Developers"
@@ -32,21 +20,10 @@ is_development = ".dev" in __version__
 
 try:
     import sphinx_gallery
-
     sphinx_gallery.__version__
-    if on_rtd and os.environ.get("READTHEDOCS_PROJECT").lower() != "sunpy":
-        # Gallery takes too long on RTD to build unless you have extra build time.
-        has_sphinx_gallery = False
-    else:
-        has_sphinx_gallery = True
+    has_sphinx_gallery = True
 except ImportError:
     has_sphinx_gallery = False
-
-if on_rtd:
-    os.environ["SUNPY_CONFIGDIR"] = "/home/docs/"
-    os.environ["HOME"] = "/home/docs/"
-    os.environ["LANG"] = "C"
-    os.environ["LC_ALL"] = "C"
 
 
 # -- General configuration ---------------------------------------------------
@@ -116,6 +93,10 @@ intersphinx_mapping = {
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
+
+def fix_circleci(x): return None
+
+
 try:
     from sunpy_sphinx_theme.conf import *
 except ImportError:
@@ -156,29 +137,30 @@ open(target_file, "a").close()
 
 # -- Options for the Sphinx gallery -------------------------------------------
 if has_sphinx_gallery:
-    import pathlib
-
+    from sphinx_gallery.sorting import ExampleTitleSortKey
     extensions += ["sphinx_gallery.gen_gallery"]
-    path = pathlib.Path.cwd()
-    example_dir = path.parent.joinpath("examples")
+    path = Path.cwd()
+    example_dir = path.parent.joinpath('examples')
     sphinx_gallery_conf = {
-        "backreferences_dir": str(path.joinpath("generated", "modules")),
-        "filename_pattern": "^((?!skip_).)*$",
-        "examples_dirs": example_dir,
-        "gallery_dirs": path.joinpath("generated", "gallery"),
-        "default_thumb_file": path.joinpath("logo", "sunpy_icon_128x128.png"),
-        "abort_on_example_error": False,
-        "plot_gallery": True,
+        'backreferences_dir': str(path.joinpath('generated', 'modules')),
+        'filename_pattern': '^((?!skip_).)*$',
+        'examples_dirs': example_dir,
+        'within_subsection_order': ExampleTitleSortKey,
+        'gallery_dirs': path.joinpath('generated', 'gallery'),
+        'default_thumb_file': path.joinpath('logo', 'sunpy_icon_128x128.png'),
+        'abort_on_example_error': False,
+        'plot_gallery': True,
+        'doc_module': ('sunpy')
     }
 
 
 def setup(app):
     if not has_sphinx_gallery:
         import warnings
+        warnings.warn('The sphinx_gallery extension is not installed, so the '
+                      'gallery will not be built. You will probably see '
+                      'additional warnings about undefined references due '
+                      'to this.')
 
-        warnings.warn(
-            "The sphinx_gallery extension is not installed, so the "
-            "gallery will not be built. You will probably see "
-            "additional warnings about undefined references due "
-            "to this."
-        )
+    # The theme conf provides a fix for circle ci redirections
+    fix_circleci(app)
