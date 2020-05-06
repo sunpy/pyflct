@@ -44,8 +44,8 @@ jobs:
       - macos: py36
         name: py36_test
 
-      - windows: conda
-        name: win_conda
+      - windows: py38-conda
+        name: py38_conda
 
       - linux: py37
         name: py37_test
@@ -66,7 +66,7 @@ jobs:
       libraries:
         - libfftw3-dev
       test_extras: 'test'
-      test_command: 'pytest -p no:warnings --doctest-rst -m "not figure" --pyargs pyflct'
+      test_command: 'pytest --pyargs pyflct'
       submodules: false
       targets:
         - wheels_linux

@@ -6,10 +6,6 @@ import pytest
 
 from pyflct.utils import *
 
-# We skip this file as the extension is not built on windows.
-if sys.platform.startswith("win"):
-    pytest.skip("Tests will not run on windows", allow_module_level=True)
-
 
 # Testing the FLCT subroutines
 @pytest.fixture

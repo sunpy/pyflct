@@ -6,10 +6,6 @@ import pytest
 import pyflct as flct
 import pyflct.data.test as data
 
-# We skip this file as the extension is not built on windows.
-if sys.platform.startswith("win"):
-    pytest.skip("Tests will not run on windows", allow_module_level=True)
-
 # Testing the main FLCT function. The 'dat' associated with any test function or fixture denotes
 # that the function or fixture will be used to test 'FLCT' wrapper where the data was originally
 # stored in a dat file. The other functions are used to test FLCT when the original data was a
