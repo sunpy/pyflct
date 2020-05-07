@@ -8,7 +8,9 @@
 # -- Project information -----------------------------------------------------
 import os
 from pathlib import Path
+
 from pyflct import __version__
+
 project = "pyflct"
 copyright = "2020, The SunPy Developers"
 author = "The SunPy Developers"
@@ -20,6 +22,7 @@ is_development = ".dev" in __version__
 
 try:
     import sphinx_gallery
+
     sphinx_gallery.__version__
     has_sphinx_gallery = True
 except ImportError:
@@ -94,11 +97,12 @@ intersphinx_mapping = {
 # a list of builtin themes.
 
 
-def fix_circleci(x): return None
+def fix_circleci(x):
+    return None
 
 
 try:
-    from sunpy_sphinx_theme.conf import *
+    from sunpy_sphinx_theme.conf import *  # NOQA
 except ImportError:
     html_theme = "default"
 
@@ -138,29 +142,33 @@ open(target_file, "a").close()
 # -- Options for the Sphinx gallery -------------------------------------------
 if has_sphinx_gallery:
     from sphinx_gallery.sorting import ExampleTitleSortKey
+
     extensions += ["sphinx_gallery.gen_gallery"]
     path = Path.cwd()
-    example_dir = path.parent.joinpath('examples')
+    example_dir = path.parent.joinpath("examples")
     sphinx_gallery_conf = {
-        'backreferences_dir': str(path.joinpath('generated', 'modules')),
-        'filename_pattern': '^((?!skip_).)*$',
-        'examples_dirs': example_dir,
-        'within_subsection_order': ExampleTitleSortKey,
-        'gallery_dirs': path.joinpath('generated', 'gallery'),
-        'default_thumb_file': path.joinpath('logo', 'sunpy_icon_128x128.png'),
-        'abort_on_example_error': False,
-        'plot_gallery': True,
-        'doc_module': ('sunpy')
+        "backreferences_dir": str(path.joinpath("generated", "modules")),
+        "filename_pattern": "^((?!skip_).)*$",
+        "examples_dirs": example_dir,
+        "within_subsection_order": ExampleTitleSortKey,
+        "gallery_dirs": path.joinpath("generated", "gallery"),
+        "default_thumb_file": path.joinpath("logo", "sunpy_icon_128x128.png"),
+        "abort_on_example_error": False,
+        "plot_gallery": True,
+        "doc_module": ("sunpy"),
     }
 
 
 def setup(app):
     if not has_sphinx_gallery:
         import warnings
-        warnings.warn('The sphinx_gallery extension is not installed, so the '
-                      'gallery will not be built. You will probably see '
-                      'additional warnings about undefined references due '
-                      'to this.')
+
+        warnings.warn(
+            "The sphinx_gallery extension is not installed, so the "
+            "gallery will not be built. You will probably see "
+            "additional warnings about undefined references due "
+            "to this."
+        )
 
     # The theme conf provides a fix for circle ci redirections
     fix_circleci(app)

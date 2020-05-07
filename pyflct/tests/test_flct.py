@@ -1,10 +1,9 @@
-import sys
-
 import numpy as np
 import pytest
 
 import pyflct as flct
 import pyflct.data.test as data
+import pyflct.utils as utils
 
 # Testing the main FLCT function. The 'dat' associated with any test function or fixture denotes
 # that the function or fixture will be used to test 'FLCT' wrapper where the data was originally
@@ -32,7 +31,7 @@ def images_dat():
 
     # Getting filepath of the test data
     filepath1 = data.get_test_filepath("hashgauss.dat")
-    arr, barr = flct.read_2_images(filepath1)
+    arr, barr = utils.read_2_images(filepath1)
 
     # The arrays are directly read from the dat files using the python functions
     # so there is no need to swap their order as they are already in row major.
@@ -44,7 +43,7 @@ def outputs_dat():
 
     # Getting filepath of the test data
     filepath1 = data.get_test_filepath("testgaussvel.dat")
-    arr, barr, carr = flct.read_3_images(filepath1)
+    arr, barr, carr = utils.read_3_images(filepath1)
 
     # The arrays are directly read from the dat files using the python functions
     # so there is no need to swap their order as they are already in row major.
@@ -65,7 +64,7 @@ def outputs():
 
     # Since these CSV files were created by reading the dat file on FLCT website using the IDL IO
     # routines their order needs to be rectified.
-    expect_x, expect_y, expect_m = flct.column_row_of_three(
+    expect_x, expect_y, expect_m = utils.column_row_of_three(
         expect_x, expect_y, expect_m
     )
 

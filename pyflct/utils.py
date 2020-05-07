@@ -184,9 +184,9 @@ def write_3_images(filename, array1, array2, array3, order="row"):
 def column_row_of_two(array1, array2):
     """
     Takes two arrays and swaps the order in which they were stored, changing
-    from column major to row major and **not** vice-versa. This may change
-    the values stored in the array as the arrays are first converted to a
-    binary format and then the order change takes place.
+    from column major to row major and **not** vice-versa. This may change the
+    values stored in the array as the arrays are first converted to a binary
+    format and then the order change takes place.
 
     Parameters
     ----------

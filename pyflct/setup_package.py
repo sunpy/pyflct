@@ -22,8 +22,8 @@ def get_extensions():
 
     if get_compiler() == "msvc":
         # Anaconda paths
-        cfg["include_dirs"].append(os.path.join(sys.prefix, "Library","include"))
-        cfg["library_dirs"].append(os.path.join(sys.prefix, "Library",'lib'))
+        cfg["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
+        cfg["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
     else:
         cfg["libraries"].append("m")
         cfg["include_dirs"].append("/usr/include/")

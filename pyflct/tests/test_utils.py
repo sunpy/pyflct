@@ -1,10 +1,16 @@
 import os
-import sys
 
 import numpy as np
 import pytest
 
-from pyflct.utils import *
+from pyflct.utils import (
+    column_row_of_three,
+    column_row_of_two,
+    read_2_images,
+    read_3_images,
+    write_2_images,
+    write_3_images,
+)
 
 
 # Testing the FLCT subroutines
