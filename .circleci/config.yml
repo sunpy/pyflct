@@ -1,7 +1,9 @@
+version: 2.1
+
 no-backports: &no-backports
-  name: Skip any branches called backport*
+  name: Skip any branches called cherry-pick
   command: |
-    if [[ "${CIRCLE_BRANCH}" = *"backport"* ]]; then
+    if [[ "${CIRCLE_BRANCH}" == *"cherry-pick"* || "${CIRCLE_BRANCH}" == *"backport"* ]]; then
       circleci step halt
     fi
 
@@ -24,7 +26,6 @@ apt-install: &apt-install
     apt update
     apt install -y graphviz build-essential libfftw3-dev
 
-version: 2
 jobs:
   twine-check:
     docker:
