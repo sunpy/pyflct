@@ -1,12 +1,11 @@
 #!/usr/bin/env python
-# Licensed under a 3-clause BSD style license - see LICENSE.rst
 
-import os
-from itertools import chain
+import os  # isort:skip
+from itertools import chain  # isort:skip
 
-from extension_helpers import get_extensions
-from setuptools import setup
-from setuptools.config import read_configuration
+from setuptools import setup  # isort:skip
+from setuptools.config import read_configuration  # isort:skip
+from extension_helpers import get_extensions  # isort:skip
 
 ################################################################################
 # Programmatically generate some extras combos.

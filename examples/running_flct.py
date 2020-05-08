@@ -26,7 +26,7 @@ image2 = np.zeros((10, 10))
 image2[0:3, 1:4] = 1
 
 ###########################################################################
-# Now we will apply FLCT.
+# Now we will apply the FLCT.
 # The values of the parameters used gave the best visual result
 # of the velocities. The time difference between the two images, ``deltat`` is
 # 1 second. The units of length of the side of a single pixel, ``deltas`` is
@@ -131,6 +131,6 @@ ax3.set_title("Second Image")
 ################################################################################
 # Notice the lonely pixel in the bottom left of every flow field which has value less than zero.
 # This discrepancy is due one of the limitations of the FLCT algorithm where it is unable to reliably
-# calculate the velocitites within ``sigma`` pixels of the image edges.
+# calculate the velocities within ``sigma`` pixels of the image edges.
 
 plt.show()

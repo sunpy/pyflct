@@ -1,5 +1,4 @@
-from .flct import *
-from .utils import *
+from .flct import *  # NOQA
 
 try:
     from .version import __version__

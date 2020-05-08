@@ -1,7 +1,10 @@
-===
-API
-===
+=============
+API Reference
+=============
 
-.. automodapi:: pyflct
-  :no-main-docstr:
-  :no-heading:
+This page lists all the functions within pyflct.
+
+
+.. automodapi:: pyflct.flct
+
+.. automodapi:: pyflct.utils
