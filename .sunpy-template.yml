@@ -4,7 +4,7 @@ default_context:
   short_description: A Python wrapper for Fourier Local Correlation Tracking.
   author_name: The SunPy Developers
   author_email: sunpy@googlegroups.com
-  license: LGPL-2.1
+  license: LGPLv2+
   project_url: https://sunpy.org
   github_repo: sunpy/pyflct
   minimum_python_version: 3.6
