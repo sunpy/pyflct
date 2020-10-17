@@ -1,8 +1,11 @@
 # cython: language_level=3
 import os
+
 import numpy as np
+
 cimport numpy as np
 from cython cimport view
+
 
 cdef extern from "../cextern/flctsubs.h":
     int flct (int transp, double * f1, double * f2, int nx, int ny, double deltat,
