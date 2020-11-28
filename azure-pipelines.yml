@@ -98,7 +98,7 @@ stages:
             pypi_connection_name : 'PyPI'
           libraries:
             - libfftw3-dev
-          test_extras: 'dev'
+          test_extras: 'test'
           test_command: 'pytest -p no:warnings --pyargs pyflct'
           submodules: false
           targets:
