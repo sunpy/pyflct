@@ -97,7 +97,7 @@ stages:
           ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
             pypi_connection_name : 'PyPI'
           test_extras: 'dev'
-          test_command: 'pytest -p no:warnings --doctest-rst --pyargs pyflct'
+          test_command: 'pytest -p no:warnings --pyargs pyflct'
           submodules: false
           targets:
             - wheels_cp3[678]-manylinux*x86_64
