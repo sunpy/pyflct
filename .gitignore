@@ -147,13 +147,12 @@ docs/_build
 docs/generated
 docs/api
 docs/whatsnew/latest_changelog.txt
-pyflct/version.py
+pyflct/_version.py
 htmlcov/
 .history
 .vscode
 *_compiler.c*
 *pyflct.c*
-*version.py*
 *flct.c*
 examples/three.dat
 examples/two.dat

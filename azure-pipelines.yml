@@ -33,56 +33,75 @@ schedules:
       - master
     always: true
 
-jobs:
-- template: run-tox-env.yml@OpenAstronomy
-  parameters:
-    submodules: false
-    coverage: codecov
-    toxdeps: tox-pypi-filter
-    libraries:
-      apt:
-        - libfftw3-dev
-      brew:
-        - fftw
-    envs:
-      - macos: py36
-        name: py36_test
+pr:
+  autoCancel: true
 
-      - linux: py38-conda
-        name: py38_conda
 
-      # https://github.com/tox-dev/tox-conda/issues/45
-      #- windows: py38-conda
-      #  name: py38_conda
+stages:
+  - stage: FirstPhaseTests
+    displayName: Core Tests
+    jobs:
+    - template: run-tox-env.yml@OpenAstronomy
+      parameters:
+        default_python: '3.8'
+        submodules: false
+        coverage: codecov
+        toxdeps: tox-pypi-filter
+        libraries:
+          apt:
+            - libfftw3-dev
+          brew:
+            - fftw
+        envs:
+          - linux: codestyle
+            name: style_check
+            pytest: false
+            libraries: {}
 
-      - linux: py37
-        name: py37_test
+          - linux: py38
 
-      - linux: py38
-        name: py38_test
+  - stage: SecondPhaseTests
+    displayName: Stage 2 Tests
+    dependsOn: FirstPhaseTests
+    jobs:
+    - template: run-tox-env.yml@OpenAstronomy
+      parameters:
+        default_python: '3.8'
+        submodules: false
+        coverage: codecov
+        toxdeps: tox-pypi-filter
 
-      - linux: codestyle
-        name: codestyle
-        pytest: false
+        libraries:
+          apt:
+            - libfftw3-dev
+          brew:
+            - fftw
 
-# On not Pull Requests, build the wheels but only upload them on tags
-- ${{ if ne(variables['Build.Reason'], 'PullRequest') }}:
-  - template: publish.yml@OpenAstronomy
-    parameters:
-      # Only Upload to PyPI on tags
-      ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
-        pypi_connection_name : 'PyPI'
-      libraries:
-        - libfftw3-dev
-      test_extras: 'test'
-      test_command: 'pytest --pyargs pyflct'
-      submodules: false
-      targets:
-        - wheels_cp3[678]-manylinux*x86_64
-        - wheels_cp3[678]-macosx*
-        - sdist
-      dependsOn:
-        - py36_test
-        - py37_test
-        - py38_test
-        - py38_conda
+        envs:
+          - macos: py37
+
+          - linux: py39
+
+          - linux: build_docs
+            posargs: " "
+            pytest: false
+
+  # On branches which aren't master, and not Pull Requests, build the wheels but only upload them on tags
+  - ${{ if and(ne(variables['Build.Reason'], 'PullRequest'), or(ne(variables['Build.SourceBranchName'], 'master'), eq(variables['Build.Reason'], 'Schedule'), eq(variables['Build.Reason'], 'Manual'))) }}:
+    - stage: Release
+      dependsOn: SecondPhaseTests
+      jobs:
+      - template: publish.yml@OpenAstronomy
+        parameters:
+          # Only Upload to PyPI on tags
+          ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
+            pypi_connection_name : 'PyPI'
+          libraries:
+            - libfftw3-dev
+          test_extras: 'test'
+          test_command: 'pytest -p no:warnings --pyargs pyflct'
+          submodules: false
+          targets:
+            - wheels_cp3[678]-manylinux*x86_64
+            - wheels_cp3[678]-macosx*
+            - sdist
