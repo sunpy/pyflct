@@ -1,6 +1,2 @@
 from .flct import *  # NOQA
-
-try:
-    from .version import __version__
-except ImportError:
-    __version__ = "unknown"
+from .version import version as __version__
