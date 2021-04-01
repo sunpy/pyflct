@@ -1,51 +1,100 @@
-# Configuration file for the Sphinx documentation builder.
-#
-# This file does only contain a selection of the most common options. For a
-# full list see the documentation:
-# http://www.sphinx-doc.org/en/master/config
-# flake8: NOQA
+"""
+Configuration file for the Sphinx documentation builder.
+isort:skip_file
+"""
+# flake8: NOQA: E402
 
-# -- Project information -----------------------------------------------------
+# -- stdlib imports ------------------------------------------------------------
 import os
-from pathlib import Path
+import sys
+import datetime
+from pkg_resources import get_distribution
+from packaging.version import Version
 
-from pyflct import __version__
+# -- Check for dependencies ----------------------------------------------------
 
+doc_requires = get_distribution("pyflct").requires(extras=("docs",))
+missing_requirements = []
+for requirement in doc_requires:
+    try:
+        get_distribution(requirement)
+    except Exception as e:
+        missing_requirements.append(requirement.name)
+if missing_requirements:
+    print(
+        f"The {' '.join(missing_requirements)} package(s) could not be found and "
+        "is needed to build the documentation, please install the 'docs' requirements."
+    )
+    sys.exit(1)
+
+# -- Read the Docs Specific Configuration --------------------------------------
+
+# This needs to be done before sunpy is imported
+on_rtd = os.environ.get("READTHEDOCS", None) == "True"
+if on_rtd:
+    os.environ["SUNPY_CONFIGDIR"] = "/home/docs/"
+    os.environ["HOME"] = "/home/docs/"
+    os.environ["LANG"] = "C"
+    os.environ["LC_ALL"] = "C"
+    os.environ["HIDE_PARFIVE_PROGESS"] = "True"
+
+# -- Non stdlib imports --------------------------------------------------------
+from pyflct import __version__  # NOQA
+
+# -- Project information -------------------------------------------------------
 project = "pyflct"
-copyright = "2020, The SunPy Developers"
-author = "The SunPy Developers"
+author = "The SunPy Community"
+copyright = "{}, {}".format(datetime.datetime.now().year, author)
 
 # The full version, including alpha/beta/rc tags
-
 release = __version__
-is_development = ".dev" in __version__
+pyflct_version = Version(__version__)
+is_release = not (pyflct_version.is_prerelease or pyflct_version.is_devrelease)
 
-try:
-    import sphinx_gallery
+# For the linkcheck
+linkcheck_ignore = [
+    r"https://doi.org/\d+",
+    r"https://element.io/\d+",
+    r"https://github.com/\d+",
+    r"https://docs.sunpy.org/\d+",
+]
+linkcheck_anchors = False
 
-    sphinx_gallery.__version__
-    has_sphinx_gallery = True
-except ImportError:
-    has_sphinx_gallery = False
+# This is added to the end of RST files - a good place to put substitutions to
+# be used globally.
+rst_epilog = """
+.. SunPy
+.. _SunPy: https://sunpy.org
+.. _`SunPy mailing list`: https://groups.google.com/group/sunpy
+.. _`SunPy dev mailing list`: https://groups.google.com/group/sunpy-dev
+"""
 
+# -- General configuration -----------------------------------------------------
 
-# -- General configuration ---------------------------------------------------
+# Suppress warnings about overriding directives as we overload some of the
+# doctest extensions.
+suppress_warnings = [
+    "app.add_directive",
+]
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.todo",
-    "sphinx.ext.coverage",
-    "sphinx.ext.inheritance_diagram",
-    "sphinx.ext.viewcode",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.doctest",
-    "sphinx.ext.mathjax",
+    "matplotlib.sphinxext.plot_directive",
     "sphinx_automodapi.automodapi",
     "sphinx_automodapi.smart_resolver",
+    "sphinx_changelog",
+    "sphinx_gallery.gen_gallery",
+    "sphinx.ext.autodoc",
+    "sphinx.ext.coverage",
+    "sphinx.ext.doctest",
+    "sphinx.ext.inheritance_diagram",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -54,6 +103,12 @@ extensions = [
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
+
+# Add any extra paths that contain custom files (such as robots.txt or
+# .htaccess) here, relative to this directory. These files are copied
+# directly to the root of the documentation.
+html_extra_path = ["robots.txt"]
+
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # The suffix(es) of source filenames.
@@ -67,45 +122,52 @@ master_doc = "index"
 # documents. Set to the "smart" one.
 default_role = "obj"
 
-# -- Options for intersphinx extension ---------------------------------------
+# Disable having a separate return type row
+napoleon_use_rtype = False
+
+# Disable google style docstrings
+napoleon_google_docstring = False
+
+# -- Options for intersphinx extension -----------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {
     "python": (
         "https://docs.python.org/3/",
-        (None, "http://data.astropy.org/intersphinx/python3.inv"),
+        (None, "http://www.astropy.org/astropy-data/intersphinx/python3.inv"),
     ),
     "numpy": (
-        "https://docs.scipy.org/doc/numpy/",
-        (None, "http://data.astropy.org/intersphinx/numpy.inv"),
+        "https://numpy.org/doc/stable/",
+        (None, "http://www.astropy.org/astropy-data/intersphinx/numpy.inv"),
     ),
     "scipy": (
         "https://docs.scipy.org/doc/scipy/reference/",
-        (None, "http://data.astropy.org/intersphinx/scipy.inv"),
+        (None, "http://www.astropy.org/astropy-data/intersphinx/scipy.inv"),
     ),
     "matplotlib": (
         "https://matplotlib.org/",
-        (None, "http://data.astropy.org/intersphinx/matplotlib.inv"),
+        (None, "http://www.astropy.org/astropy-data/intersphinx/matplotlib.inv"),
     ),
-    "astropy": ("http://docs.astropy.org/en/stable/", None),
-    "sunpy": ("https://docs.sunpy.org/en/stable/", None),
+    "sunpy": (
+        "https://sunpy.org/",
+        (None, "https://docs.sunpy.org/en/stable/"),
+    ),
+    "astropy": ("https://docs.astropy.org/en/stable/", None),
+    "sqlalchemy": ("https://docs.sqlalchemy.org/en/latest/", None),
+    "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
+    "skimage": ("https://scikit-image.org/docs/stable/", None),
+    "drms": ("https://docs.sunpy.org/projects/drms/en/stable/", None),
+    "parfive": ("https://parfive.readthedocs.io/en/stable/", None),
+    "reproject": ("https://reproject.readthedocs.io/en/stable/", None),
+    "aiapy": ("https://aiapy.readthedocs.io/en/stable/", None),
 }
 
-# -- Options for HTML output -------------------------------------------------
+# -- Options for HTML output ---------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-
-def fix_circleci(x):
-    return None
-
-
-try:
-    from sunpy_sphinx_theme.conf import *  # NOQA
-except ImportError:
-    html_theme = "default"
-
+from sunpy_sphinx_theme.conf import *  # NOQA
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -124,51 +186,22 @@ graphviz_dot_args = [
     "-Gfontname=Helvetica Neue, Helvetica, Arial, sans-serif",
 ]
 
+# -- Sphinx Gallery ------------------------------------------------------------
+from sphinx_gallery.sorting import ExampleTitleSortKey
 
-"""
-Write the latest changelog into the documentation.
-"""
-target_file = os.path.abspath("./whatsnew/latest_changelog.txt")
-try:
-    from sunpy.util.towncrier import generate_changelog_for_docs
-
-    if is_development:
-        generate_changelog_for_docs("../", target_file)
-except Exception as e:
-    print(f"Failed to add changelog to docs with error {e}.")
-# Make sure the file exists or else sphinx will complain.
-open(target_file, "a").close()
-
-# -- Options for the Sphinx gallery -------------------------------------------
-if has_sphinx_gallery:
-    from sphinx_gallery.sorting import ExampleTitleSortKey
-
-    extensions += ["sphinx_gallery.gen_gallery"]
-    path = Path.cwd()
-    example_dir = path.parent.joinpath("examples")
-    sphinx_gallery_conf = {
-        "backreferences_dir": str(path.joinpath("generated", "modules")),
-        "filename_pattern": "^((?!skip_).)*$",
-        "examples_dirs": example_dir,
-        "within_subsection_order": ExampleTitleSortKey,
-        "gallery_dirs": path.joinpath("generated", "gallery"),
-        "default_thumb_file": path.joinpath("logo", "sunpy_icon_128x128.png"),
-        "abort_on_example_error": False,
-        "plot_gallery": True,
-        "doc_module": ("sunpy"),
-    }
-
-
-def setup(app):
-    if not has_sphinx_gallery:
-        import warnings
-
-        warnings.warn(
-            "The sphinx_gallery extension is not installed, so the "
-            "gallery will not be built. You will probably see "
-            "additional warnings about undefined references due "
-            "to this."
-        )
-
-    # The theme conf provides a fix for circle ci redirections
-    fix_circleci(app)
+sphinx_gallery_conf = {
+    "backreferences_dir": os.path.join("generated", "modules"),
+    "filename_pattern": "^((?!skip_).)*$",
+    "examples_dirs": os.path.join("..", "examples"),
+    "within_subsection_order": ExampleTitleSortKey,
+    "gallery_dirs": os.path.join("generated", "gallery"),
+    # Comes from the theme.
+    "default_thumb_file": os.path.join(
+        html_static_path[0], "img", "sunpy_icon_128x128.png"
+    ),
+    "abort_on_example_error": False,
+    "plot_gallery": "True",
+    "remove_config_comments": True,
+    "doc_module": ("sunpy"),
+    "only_warn_on_example_error": True,
+}

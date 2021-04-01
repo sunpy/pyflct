@@ -10,8 +10,9 @@ dependencies:
   - fftw
   - gcc_linux-64
   - pip:
-    - sphinx-astropy
+    - matplotlib
+    - sphinx
+    - sphinx-automodapi
     - sphinx-gallery
     - sunpy-sphinx-theme
     - towncrier
-    - matplotlib
