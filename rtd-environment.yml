@@ -12,6 +12,7 @@ dependencies:
   - pip:
     - matplotlib
     - sphinx
+    - sphinx-changelog
     - sphinx-automodapi
     - sphinx-gallery
     - sunpy-sphinx-theme
