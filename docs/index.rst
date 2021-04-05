@@ -21,8 +21,7 @@ Our Example Gallery provides examples on how to use the Python wrapper.
 
 Other references you might find useful are:
 
-* `Analysing the Effects of Apodizing Windows on Local Correlation Tracking Using Nirvana Simulations of Convection
- <https://link.springer.com/article/10.1007/s11207-015-0659-2>`__
+* `Analysing the Effects of Apodizing Windows on Local Correlation Tracking Using Nirvana Simulations of Convection <https://link.springer.com/article/10.1007/s11207-015-0659-2>`__
 * `Another version of pyflct <https://github.com/PyDL/pyflct>`__
 
 Contents
