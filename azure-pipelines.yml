@@ -30,12 +30,11 @@ schedules:
     displayName: Daily midnight build
     branches:
       include:
-      - master
+      - main
     always: true
 
 pr:
   autoCancel: true
-
 
 stages:
   - stage: FirstPhaseTests
@@ -87,7 +86,7 @@ stages:
             pytest: false
 
   # On branches which aren't master, and not Pull Requests, build the wheels but only upload them on tags
-  - ${{ if and(ne(variables['Build.Reason'], 'PullRequest'), or(ne(variables['Build.SourceBranchName'], 'master'), eq(variables['Build.Reason'], 'Schedule'), eq(variables['Build.Reason'], 'Manual'))) }}:
+  - ${{ if and(ne(variables['Build.Reason'], 'PullRequest'), or(ne(variables['Build.SourceBranchName'], 'main'), eq(variables['Build.Reason'], 'Schedule'), eq(variables['Build.Reason'], 'Manual'))) }}:
     - stage: Release
       dependsOn: SecondPhaseTests
       jobs:
