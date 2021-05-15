@@ -30,12 +30,11 @@ schedules:
     displayName: Daily midnight build
     branches:
       include:
-      - master
+      - main
     always: true
 
 pr:
   autoCancel: true
-
 
 stages:
   - stage: FirstPhaseTests
@@ -57,7 +56,6 @@ stages:
             name: style_check
             pytest: false
             libraries: {}
-
           - linux: py38
 
   - stage: SecondPhaseTests
@@ -70,24 +68,21 @@ stages:
         submodules: false
         coverage: codecov
         toxdeps: tox-pypi-filter
-
         libraries:
           apt:
             - libfftw3-dev
           brew:
             - fftw
-
         envs:
-          - macos: py37
-
           - linux: py39
-
+          - macos: py37
+          - linux: py38-conda
           - linux: build_docs
             posargs: " "
             pytest: false
 
   # On branches which aren't master, and not Pull Requests, build the wheels but only upload them on tags
-  - ${{ if and(ne(variables['Build.Reason'], 'PullRequest'), or(ne(variables['Build.SourceBranchName'], 'master'), eq(variables['Build.Reason'], 'Schedule'), eq(variables['Build.Reason'], 'Manual'))) }}:
+  - ${{ if and(ne(variables['Build.Reason'], 'PullRequest'), or(ne(variables['Build.SourceBranchName'], 'main'), eq(variables['Build.Reason'], 'Schedule'), eq(variables['Build.Reason'], 'Manual'))) }}:
     - stage: Release
       dependsOn: SecondPhaseTests
       jobs:

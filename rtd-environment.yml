@@ -1,19 +1,16 @@
-name: sunpy
+name: pyflct
 channels:
-  - sunpy
-  - defaults
+  - conda-forge
 dependencies:
   - graphviz!=2.42.*
   - pip
-  - python
-  - sphinx
+  - python=3.8
   - fftw
   - gcc_linux-64
   - pip:
     - matplotlib
     - sphinx
-    - sphinx-changelog
     - sphinx-automodapi
+    - sphinx-changelog
     - sphinx-gallery
     - sunpy-sphinx-theme
-    - towncrier

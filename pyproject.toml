@@ -1,10 +1,12 @@
 [build-system]
-requires = ["setuptools",
-            "setuptools_scm",
-            "wheel",
-            "extension-helpers",
-            "oldest-supported-numpy",
-            "cython==0.29.21"]
+requires = [
+  "cython==0.29.23",
+  "extension-helpers",
+  "oldest-supported-numpy",
+  "setuptools_scm",
+  "setuptools",
+  "wheel",
+]
 build-backend = 'setuptools.build_meta'
 
 [tool.towncrier]
@@ -12,6 +14,7 @@ build-backend = 'setuptools.build_meta'
     filename = "CHANGELOG.rst"
     directory = "changelog/"
     issue_format = "`#{issue} <https://github.com/sunpy/pyflct/pull/{issue}>`__"
+    title_format = "{version} ({project_date})"
 
     [[tool.towncrier.type]]
         directory = "breaking"
