@@ -23,7 +23,6 @@ trigger:
     exclude:
     - '*dev*'
     - '*pre*'
-    - '*post*'
 
 schedules:
   - cron: "0 0 * * *"
