@@ -64,20 +64,14 @@ def test_two_read_write(arrays_test):
     with pytest.raises(ValueError) as record:
         write_2_images(file_name, arrays_test[0], arrays_test[1], order)
 
-    assert (
-        str(record.value)
-        == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-    )
+    assert str(record.value) == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
 
     order = "random"
 
     with pytest.raises(ValueError) as record:
         _ = read_2_images(file_name, order)
 
-    assert (
-        str(record.value)
-        == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-    )
+    assert str(record.value) == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
 
 
 def test_three_read_write(arrays_test):
@@ -105,9 +99,7 @@ def test_three_read_write(arrays_test):
 
     # The same thing as above is repeated the only difference being that the arrays
     # are both written and read back in column major order
-    write_3_images(
-        file_name, arrays_test[0], arrays_test[1], arrays_test[2], order="column"
-    )
+    write_3_images(file_name, arrays_test[0], arrays_test[1], arrays_test[2], order="column")
 
     arr, barr, carr = read_3_images(file_name, order="column")
 
@@ -124,20 +116,14 @@ def test_three_read_write(arrays_test):
     with pytest.raises(ValueError) as record:
         write_3_images(file_name, arrays_test[0], arrays_test[1], arrays_test[2], order)
 
-    assert (
-        str(record.value)
-        == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-    )
+    assert str(record.value) == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
 
     order = "random"
 
     with pytest.raises(ValueError) as record:
         _ = read_3_images(file_name, order)
 
-    assert (
-        str(record.value)
-        == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-    )
+    assert str(record.value) == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
 
 
 def test_swaps(arrays_test):
@@ -157,9 +143,7 @@ def test_swaps(arrays_test):
     assert np.allclose(result_b, arrays_test[1])
 
     # This is to change the order of three arrays at a time.
-    result_a, result_b, result_c = column_row_of_three(
-        arrays_test[0], arrays_test[1], arrays_test[2]
-    )
+    result_a, result_b, result_c = column_row_of_three(arrays_test[0], arrays_test[1], arrays_test[2])
 
     assert np.allclose(result_a, arrays_test[0])
     assert np.allclose(result_b, arrays_test[1])

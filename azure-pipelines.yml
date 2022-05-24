@@ -51,11 +51,7 @@ stages:
           brew:
             - fftw
         envs:
-          - linux: codestyle
-            name: style_check
-            pytest: false
-            libraries: {}
-          - linux: py38
+          - linux: py310
 
   - stage: SecondPhaseTests
     displayName: Stage 2 Tests
@@ -74,7 +70,7 @@ stages:
             - fftw
         envs:
           - linux: py39
-          - macos: py37
+          - macos: py38
           - linux: py38-conda
           - linux: build_docs
             posargs: " "
@@ -96,6 +92,6 @@ stages:
           test_command: 'pytest -p no:warnings --pyargs pyflct'
           submodules: false
           targets:
-            - wheels_cp3[6789]-manylinux*x86_64
-            - wheels_cp3[6789]-macosx*
+            - wheels_cp3[8910]-manylinux*x86_64
+            - wheels_cp3[8910]-macosx*
             - sdist
