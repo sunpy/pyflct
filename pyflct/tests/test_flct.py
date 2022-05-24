@@ -64,9 +64,7 @@ def outputs():
 
     # Since these CSV files were created by reading the dat file on FLCT website using the IDL IO
     # routines their order needs to be rectified.
-    expect_x, expect_y, expect_m = utils.column_row_of_three(
-        expect_x, expect_y, expect_m
-    )
+    expect_x, expect_y, expect_m = utils.column_row_of_three(expect_x, expect_y, expect_m)
 
     return (expect_x, expect_y, expect_m)
 
@@ -93,10 +91,7 @@ def test_flct_array(images, outputs):
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images[0], images[1], 1, 1, 5, order, kr=0.5)
 
-    assert (
-        str(record.value)
-        == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-    )
+    assert str(record.value) == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
 
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images[0], images[1], 1, 1, 5, kr=0.5, skip=-1)
@@ -106,10 +101,7 @@ def test_flct_array(images, outputs):
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images[0], images[1], 1, 1, 5, kr=0.5, skip=1, xoff=4)
 
-    assert (
-        str(record.value)
-        == "The absolute value of 'xoff' and 'yoff' must be less than skip."
-    )
+    assert str(record.value) == "The absolute value of 'xoff' and 'yoff' must be less than skip."
 
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images[0], images[1], 1, 1, 5, kr=40)
@@ -141,10 +133,7 @@ def test_flct_dat(images_dat, outputs_dat):
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images_dat[0], images_dat[1], 1, 1, 5, order, kr=0.5)
 
-    assert (
-        str(record.value)
-        == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-    )
+    assert str(record.value) == "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
 
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images_dat[0], images_dat[1], 1, 1, 5, kr=0.5, skip=-1)
@@ -154,10 +143,7 @@ def test_flct_dat(images_dat, outputs_dat):
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images_dat[0], images_dat[1], 1, 1, 5, kr=0.5, skip=1, xoff=4)
 
-    assert (
-        str(record.value)
-        == "The absolute value of 'xoff' and 'yoff' must be less than skip."
-    )
+    assert str(record.value) == "The absolute value of 'xoff' and 'yoff' must be less than skip."
 
     with pytest.raises(ValueError) as record:
         _ = flct.flct(images_dat[0], images_dat[1], 1, 1, 5, kr=40)

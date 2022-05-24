@@ -53,6 +53,4 @@ def get_test_filepath(filename, **kwargs):
     -----
     """
     files = test_data_filenames()
-    return os.path.join(
-        rootdir, files[[i for i, elem in enumerate(files) if filename in elem][0]]
-    )
+    return os.path.join(rootdir, files[[i for i, elem in enumerate(files) if filename in elem][0]])

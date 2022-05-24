@@ -27,8 +27,6 @@ def get_extensions():
     else:
         cfg["libraries"].append("m")
         cfg["include_dirs"].append("/usr/include/")
-        cfg["extra_compile_args"].extend(
-            ["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"]
-        )
+        cfg["extra_compile_args"].extend(["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"])
 
     return [Extension("pyflct._flct", **cfg)]

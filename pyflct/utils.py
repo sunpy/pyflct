@@ -41,9 +41,7 @@ def read_2_images(filename, order="row"):
         raise ImportError("C extension for flct is missing, please rebuild.")
 
     if order.lower() not in ["row", "column"]:
-        raise ValueError(
-            "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-        )
+        raise ValueError("The order of the arrays is not correctly specified. It can only be 'row' or 'column'")
 
     if order == "row":
         transp = 0
@@ -87,9 +85,7 @@ def read_3_images(filename, order="row"):
         raise ImportError("C extension for flct is missing, please rebuild.")
 
     if order.lower() not in ["row", "column"]:
-        raise ValueError(
-            "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-        )
+        raise ValueError("The order of the arrays is not correctly specified. It can only be 'row' or 'column'")
 
     if order == "row":
         transp = 0
@@ -127,9 +123,7 @@ def write_2_images(filename, array1, array2, order="row"):
         raise ImportError("C extension for flct is missing, please rebuild.")
 
     if order.lower() not in ["row", "column"]:
-        raise ValueError(
-            "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-        )
+        raise ValueError("The order of the arrays is not correctly specified. It can only be 'row' or 'column'")
 
     if order == "row":
         transp = 0
@@ -166,9 +160,7 @@ def write_3_images(filename, array1, array2, array3, order="row"):
         raise ImportError("C extension for flct is missing, please rebuild.")
 
     if order.lower() not in ["row", "column"]:
-        raise ValueError(
-            "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-        )
+        raise ValueError("The order of the arrays is not correctly specified. It can only be 'row' or 'column'")
 
     if order == "row":
         transp = 0

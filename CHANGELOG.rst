@@ -1,3 +1,16 @@
+0.2.3 (2022-05-24)
+==================
+
+Breaking Changes
+----------------
+
+- Dropped support for Python 3.6 and 3.7
+
+Features
+--------
+
+- Added wheels for python 3.10
+
 0.2.2 (2020-05-01)
 ==================
 
@@ -5,7 +18,6 @@ Features
 --------
 
 - Added wheels for python 3.9
-
 
 0.2.1 (2020-05-08)
 ==================

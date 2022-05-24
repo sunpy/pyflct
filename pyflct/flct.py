@@ -162,9 +162,7 @@ def flct(
         raise ImportError("C extension for flct is missing, please rebuild.")
 
     if order.lower() not in ["row", "column"]:
-        raise ValueError(
-            "The order of the arrays is not correctly specified. It can only be 'row' or 'column'"
-        )
+        raise ValueError("The order of the arrays is not correctly specified. It can only be 'row' or 'column'")
 
     # If order is column then order swap is performed.
     if order == "column":
@@ -197,9 +195,7 @@ def flct(
             raise ValueError("Skip value must be greater than zero.")
 
         if np.abs(xoff) >= skip or np.abs(yoff) >= skip:
-            raise ValueError(
-                "The absolute value of 'xoff' and 'yoff' must be less than skip."
-            )
+            raise ValueError("The absolute value of 'xoff' and 'yoff' must be less than skip.")
     else:
         skip = 0
 
