@@ -51,10 +51,6 @@ stages:
           brew:
             - fftw
         envs:
-          - linux: codestyle
-            name: style_check
-            pytest: false
-            libraries: {}
           - linux: py310
 
   - stage: SecondPhaseTests
