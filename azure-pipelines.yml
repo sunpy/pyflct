@@ -69,9 +69,8 @@ stages:
           brew:
             - fftw
         envs:
-          - linux: py39
           - macos: py38
-          - linux: py38-conda
+          - linux: py39-conda
           - linux: build_docs
             posargs: " "
             pytest: false
@@ -92,6 +91,10 @@ stages:
           test_command: 'pytest -p no:warnings --pyargs pyflct'
           submodules: false
           targets:
-            - wheels_cp3[8910]-manylinux*x86_64
-            - wheels_cp3[8910]-macosx*
+            - wheels_cp38-manylinux*x86_64
+            - wheels_cp39-manylinux*x86_64
+            - wheels_cp310-manylinux*x86_64
+            - wheels_cp38-macosx*
+            - wheels_cp39-macosx*
+            - wheels_cp310-macosx*
             - sdist
