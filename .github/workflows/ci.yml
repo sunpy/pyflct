@@ -19,78 +19,150 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  core:
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
-    with:
-      submodules: false
-      coverage: codecov
-      toxdeps: "'tox<4' tox-pypi-filter"
-      libraries: |
-        apt:
-          - libfftw3-dev
-      envs: |
-        - linux: py311
+  # core:
+  #   uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
+  #   with:
+  #     submodules: false
+  #     coverage: codecov
+  #     toxdeps: "'tox<4' tox-pypi-filter"
+  #     libraries: |
+  #       apt:
+  #         - libfftw3-dev
+  #     envs: |
+  #       - linux: py311
 
-  test:
-    needs: [core]
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
-    with:
-      submodules: false
-      coverage: codecov
-      toxdeps: "'tox<4' tox-pypi-filter"
-      libraries: |
-        apt:
-          - libfftw3-dev
-        brew:
-          - fftw
-      envs: |
-        - macos: py38
-        - linux: py310-conda
-        - linux: py39-conda
+  # test:
+  #   needs: [core]
+  #   uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
+  #   with:
+  #     submodules: false
+  #     coverage: codecov
+  #     toxdeps: "'tox<4' tox-pypi-filter"
+  #     libraries: |
+  #       apt:
+  #         - libfftw3-dev
+  #       brew:
+  #         - fftw
+  #     envs: |
+  #       - macos: py38
+  #       - linux: py310-conda
+  #       - linux: py39-conda
 
-  docs:
-    needs: [core]
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
-    with:
-      default_python: '3.8'
-      submodules: false
-      pytest: false
-      toxdeps: "'tox<4' tox-pypi-filter"
-      cache-key: docs-${{ github.run_id }}
-      libraries: |
-        apt:
-          - graphviz
-          - libfftw3-dev
-      envs: |
-        - linux: build_docs
+  # docs:
+  #   needs: [core]
+  #   uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
+  #   with:
+  #     default_python: '3.8'
+  #     submodules: false
+  #     pytest: false
+  #     toxdeps: "'tox<4' tox-pypi-filter"
+  #     cache-key: docs-${{ github.run_id }}
+  #     libraries: |
+  #       apt:
+  #         - graphviz
+  #         - libfftw3-dev
+  #     envs: |
+  #       - linux: build_docs
 
-  publish:
-    if: |
-      (
-        github.event_name != 'pull_request' && (
-          github.ref_name != 'main' ||
-          github.event_name == 'workflow_dispatch'
-        )
-      ) || (
-        github.event_name == 'pull_request' &&
-        contains(github.event.pull_request.labels.*.name, 'Run publish')
-      )
-    needs: [test]
+  # publish:
+  #   if: |
+  #     (
+  #       github.event_name != 'pull_request' && (
+  #         github.ref_name != 'main' ||
+  #         github.event_name == 'workflow_dispatch'
+  #       )
+  #     ) || (
+  #       github.event_name == 'pull_request' &&
+  #       contains(github.event.pull_request.labels.*.name, 'Run publish')
+  #     )
+  #   needs: [test]
 
-    uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish.yml@main
-    with:
-      test_extras: 'dev'
-      test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
-      submodules: false
-      libraries: libfftw3-dev
-      targets: |
-        - cp38-manylinux*_x86_64
-        - cp38-macosx_x86_64
-        - cp39-manylinux*_x86_64
-        - cp39-macosx_x86_64
-        - cp310-manylinux*_x86_64
-        - cp310-macosx_x86_64
-        - cp311-manylinux*_x86_64
-        - cp311-macosx_x86_64
-    secrets:
-      pypi_token: ${{ secrets.pypi_token }}
+  #   uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish.yml@main
+  #   with:
+  #     test_extras: 'dev'
+  #     test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
+  #     submodules: false
+  #     libraries: libfftw3-dev
+  #     targets: |
+  #       - cp38-macosx_x86_64
+  #       - cp38-manylinux*_x86_64
+  #       - cp39-macosx_x86_64
+  #       - cp39-manylinux*_x86_64
+  #       - cp310-macosx_x86_64
+  #       - cp310-manylinux*_x86_64
+  #       - cp311-macosx_x86_64
+  #       - cp311-manylinux*_x86_64
+  #   secrets:
+  #     pypi_token: ${{ secrets.pypi_token }}
+
+  build_windows_wheels:
+    # Only works for 64-bit.
+    # 32-bit is likely possible, but probably not worth the time investment to get
+    # working given low usage
+    name: Build ${{ matrix.cibw_python }}-win${{ matrix.cibw_arch }} wheel on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022]
+        cibw_python: ["cp311"]
+        cibw_arch: ["_amd64"]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v4
+        name: Install Python
+        with:
+          python-version: '3.11'
+      - name: Install cibuildwheel
+        run: |
+          python -m pip install cibuildwheel
+      - name: Download FFTW libraries
+        run: |
+          Write-Output "Downloading FFTW release (64-bit)"
+          Invoke-WebRequest -Uri "https://fftw.org/pub/fftw/fftw-3.3.5-dll64.zip" -OutFile "${{ github.workspace }}\fftw64.zip"
+          Write-Output "Unzipping 64-bit FFTW release"
+          Expand-Archive -Path "${{ github.workspace }}\fftw64.zip" -DestinationPath "${{ github.workspace }}\fftw64"
+          Write-Output "Downloading FFTW release (32-bit)"
+          Invoke-WebRequest -Uri "https://fftw.org/pub/fftw/fftw-3.3.5-dll32.zip" -OutFile "${{ github.workspace }}\fftw32.zip"
+          Write-Output "Unzipping 32-bit FFTW release"
+          Expand-Archive -Path "${{ github.workspace }}\fftw32.zip" -DestinationPath "${{ github.workspace }}\fftw32"
+        shell: powershell
+        # Annoyingly these two next steps are needed as FFTW does not ship with
+        # .lib files which msvc requires for linking
+      - name: Setup Visual Code build tools (32-bit)
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+        if: ${{ matrix.cibw_arch == '32' }}
+      - name: Setup Visual Code build tools (64-bit)
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+        if: ${{ matrix.cibw_arch != '32' }}
+      - name: Convert .def files to .lib
+        run: |
+          lib.exe /def:${{ github.workspace }}\fftw64\libfftw3-3.def /out:${{ github.workspace }}\fftw64\libfftw3-3.lib /machine:x64
+          lib.exe /def:${{ github.workspace }}\fftw64\libfftw3f-3.def /out:${{ github.workspace }}\fftw64\libfftw3f-3.lib /machine:x64
+          lib.exe /def:${{ github.workspace }}\fftw64\libfftw3l-3.def /out:${{ github.workspace }}\fftw64\libfftw3l-3.lib /machine:x64
+          lib.exe /def:${{ github.workspace }}\fftw32\libfftw3-3.def /out:${{ github.workspace }}\fftw32\libfftw3-3.lib /machine:x86
+          lib.exe /def:${{ github.workspace }}\fftw32\libfftw3f-3.def /out:${{ github.workspace }}\fftw32\libfftw3f-3.lib /machine:x86
+          lib.exe /def:${{ github.workspace }}\fftw32\libfftw3l-3.def /out:${{ github.workspace }}\fftw32\libfftw3l-3.lib /machine:x86
+      - name: Build Windows wheels
+        env:
+          ARCHITECTURE_BIT: ${{ matrix.cibw_arch == '32' && '32' || '64' }}
+          CIBW_BUILD: ${{ matrix.cibw_python }}-win${{ matrix.cibw_arch }}
+          CIBW_BEFORE_BUILD: >-
+            (robocopy
+            ${{ github.workspace }}\fftw${{ matrix.cibw_arch == '32' && '32' || '64' }}
+            ${{ github.workspace }}\pyfftw /V /S /E)
+            ^& exit 0
+        run: |
+          python -m cibuildwheel --output-dir dist
+      - uses: actions/upload-artifact@v2
+        name: Upload wheels as artifacts
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          name: wheels
+          path: ./dist/*.whl

@@ -19,12 +19,10 @@ def get_extensions():
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
     cfg["libraries"].append("fftw3")
-
-    if get_compiler() == "msvc":
-        # Anaconda paths
-        cfg["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
-        cfg["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
-    else:
+    if sys.platform == "win32":
+        cfg["include_dirs"].append(os.path.join("cextern","windows"))
+        cfg["libraries"].append(os.path.join(sys.prefix, 'bin'))
+    if get_compiler() != "msvc":
         cfg["libraries"].append("m")
         cfg["include_dirs"].append("/usr/include/")
         cfg["extra_compile_args"].extend(["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"])
