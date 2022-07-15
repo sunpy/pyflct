@@ -1,21 +1,30 @@
 [build-system]
 requires = [
-  "cython",
+  "cython>=3.0.0",
+  "numpy>=1.25.0",
   "extension-helpers",
-  "oldest-supported-numpy",
-  "setuptools>=56,!=61.0.0",
-  "setuptools_scm[toml]>=6.2",
+  "setuptools",
+  "setuptools_scm[toml]",
   "wheel",
 ]
 build-backend = 'setuptools.build_meta'
 
 [tool.cibuildwheel]
+build-verbosity = 2
+
+[tool.cibuildwheel.environment]
+PIP_PREFER_BINARY = true
 
 [tool.cibuildwheel.linux]
 before-all = "yum -y install fftw-devel; git clean -xfd -e dist"
 
 [tool.cibuildwheel.macos]
 before-all = "brew install fftw; git clean -xfd -e dist"
+
+[tool.cibuildwheel.windows]
+before-all = "conda.exe install fftw; git clean -xfd -e dist"
+before-build = "pip install delvewheel"
+repair-wheel-command = "delvewheel repair --add-path %CONDA%\\Library\\bin -w {dest_dir} {wheel}"
 
 [tool.black]
 line-length = 120

@@ -19,9 +19,8 @@ def get_extensions():
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
     cfg["libraries"].append("fftw3")
-
     if get_compiler() == "msvc":
-        # Anaconda paths
+        # Conda paths
         cfg["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
         cfg["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
     else:
