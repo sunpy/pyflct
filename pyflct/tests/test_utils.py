@@ -16,7 +16,6 @@ from pyflct.utils import (
 # Testing the FLCT subroutines
 @pytest.fixture
 def arrays_test():
-
     a = np.zeros((4, 4))
     b = np.ones((4, 4))
     c = np.zeros((4, 4))
