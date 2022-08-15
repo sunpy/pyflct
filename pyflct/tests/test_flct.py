@@ -13,7 +13,6 @@ import pyflct.utils as utils
 
 @pytest.fixture
 def images():
-
     # Getting filepath of the test data
     filepath1 = data.get_test_filepath("hashgauss_F1.csv")
     filepath2 = data.get_test_filepath("hashgauss_F2.csv")
@@ -28,7 +27,6 @@ def images():
 
 @pytest.fixture
 def images_dat():
-
     # Getting filepath of the test data
     filepath1 = data.get_test_filepath("hashgauss.dat")
     arr, barr = utils.read_2_images(filepath1)
@@ -40,7 +38,6 @@ def images_dat():
 
 @pytest.fixture
 def outputs_dat():
-
     # Getting filepath of the test data
     filepath1 = data.get_test_filepath("testgaussvel.dat")
     arr, barr, carr = utils.read_3_images(filepath1)
@@ -52,7 +49,6 @@ def outputs_dat():
 
 @pytest.fixture
 def outputs():
-
     # Getting filepath of the test data
     filepath_x = data.get_test_filepath("testgauss_vx.csv")
     filepath_y = data.get_test_filepath("testgauss_vy.csv")
@@ -70,7 +66,6 @@ def outputs():
 
 
 def test_flct_array(images, outputs):
-
     # Here the FLCT function is called with the same settings as given on the C code website and
     # the same data is also used for testing.
     # Here the order is set as column as the input arrays are read from CSV file which was read
@@ -115,7 +110,6 @@ def test_flct_array(images, outputs):
 
 
 def test_flct_dat(images_dat, outputs_dat):
-
     # Here the FLCT function is called with the same settings as given on the C code website and
     # the same data is also used for testing.
     vx, vy, vm = flct.flct(images_dat[0], images_dat[1], 1, 1, 5, kr=0.5)
