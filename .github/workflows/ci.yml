@@ -79,6 +79,8 @@ jobs:
 
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish.yml@main
     with:
+      test_extras: 'dev'
+      test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
       submodules: false
       libraries: libfftw3-dev
       targets: |
