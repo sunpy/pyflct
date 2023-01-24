@@ -26,6 +26,9 @@ jobs:
       coverage: codecov
       toxdeps: "'tox<4' tox-pypi-filter"
       posargs: -n auto
+      libraries: |
+        apt:
+          - libfftw3-dev
       envs: |
         - linux: py311
 
@@ -37,8 +40,12 @@ jobs:
       coverage: codecov
       toxdeps: "'tox<4' tox-pypi-filter"
       posargs: -n auto
+      libraries: |
+        apt:
+          - libfftw3-dev
+        brew:
+          - fftw
       envs: |
-        - windows: py39
         - macos: py38
         - linux: py310-conda
 
@@ -74,6 +81,7 @@ jobs:
       test_extras: 'dev'
       test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
       submodules: false
+      libraries: libfftw3-dev
       targets: |
         - cp3{8,9,10,11}-manylinux*_x86_64
         - cp3{8,9,10,11}-macosx_x86_64
