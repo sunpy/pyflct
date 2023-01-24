@@ -1,5 +1,9 @@
 name: CI
 
+env:
+  CIBW_BEFORE_BUILD_LINUX: "yum -y install fftw-devel; git clean -xfd -e wheelhouse"
+  CIBW_BEFORE_BUILD_MACOS: "brew install fftw; git clean -xfd -e wheelhouse"
+
 on:
   push:
     branches:
@@ -83,7 +87,11 @@ jobs:
       test_extras: 'dev'
       test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
       submodules: false
-      libraries: libfftw3-dev
+      libraries: |
+        apt:
+          - libfftw3-dev
+        brew:
+          - fftw
       targets: |
         - cp3{8,9,10,11}-manylinux*_x86_64
         - cp3{8,9,10,11}-macosx_x86_64
