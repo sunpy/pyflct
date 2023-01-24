@@ -1,0 +1,101 @@
+name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
+variables:
+  CIBW_BEFORE_BUILD_LINUX: "yum -y install fftw-devel; git clean -xfd -e wheelhouse"
+  CIBW_BEFORE_BUILD_MACOS: "brew install fftw; git clean -xfd -e wheelhouse"
+
+resources:
+  repositories:
+  - repository: OpenAstronomy
+    type: github
+    endpoint: sunpy
+    name: OpenAstronomy/azure-pipelines-templates
+    ref: master
+
+trigger:
+  branches:
+    include:
+    - '*'
+    exclude:
+    - '*backport*'
+  tags:
+    include:
+    - 'v*'
+    exclude:
+    - '*dev*'
+    - '*pre*'
+
+schedules:
+  - cron: "0 12 * * 0"
+    displayName: Weekly Sunday build
+    branches:
+      include:
+      - main
+    always: true
+
+pr:
+  autoCancel: true
+
+stages:
+  - stage: FirstPhaseTests
+    displayName: Core Tests
+    jobs:
+    - template: run-tox-env.yml@OpenAstronomy
+      parameters:
+        default_python: '3.8'
+        submodules: false
+        coverage: codecov
+        toxdeps: tox-pypi-filter
+        libraries:
+          apt:
+            - libfftw3-dev
+        envs:
+          - linux: py311
+
+  - stage: SecondPhaseTests
+    displayName: Stage 2 Tests
+    dependsOn: FirstPhaseTests
+    jobs:
+    - template: run-tox-env.yml@OpenAstronomy
+      parameters:
+        default_python: '3.8'
+        submodules: false
+        coverage: codecov
+        toxdeps: tox-pypi-filter
+        libraries:
+          apt:
+            - libfftw3-dev
+          brew:
+            - fftw
+        envs:
+          - macos: py38
+          - linux: py39
+          - linux: py310-conda
+          - linux: build_docs
+            posargs: " "
+            pytest: false
+
+  # On branches which aren't master, and not Pull Requests, build the wheels but only upload them on tags
+  - ${{ if and(ne(variables['Build.Reason'], 'PullRequest'), or(ne(variables['Build.SourceBranchName'], 'main'), eq(variables['Build.Reason'], 'Schedule'), eq(variables['Build.Reason'], 'Manual'))) }}:
+    - stage: Release
+      dependsOn: SecondPhaseTests
+      jobs:
+      - template: publish.yml@OpenAstronomy
+        parameters:
+          # Only Upload to PyPI on tags
+          ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
+            pypi_connection_name : 'PyPI'
+          libraries:
+            - libfftw3-dev
+          test_extras: 'test'
+          test_command: 'pytest -p no:warnings --pyargs pyflct'
+          submodules: false
+          targets:
+            - wheels_cp38-manylinux*x86_64
+            - wheels_cp39-manylinux*x86_64
+            - wheels_cp310-manylinux*x86_64
+            - wheels_cp311-manylinux*x86_64
+            - wheels_cp38-macosx*
+            - wheels_cp39-macosx*
+            - wheels_cp310-macosx*
+            - wheels_cp311-macosx*
+            - sdist
