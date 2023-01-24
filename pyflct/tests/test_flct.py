@@ -162,7 +162,6 @@ def test_flct_optional(images_dat):
     increase the test coverage for lines containing the setting of
     optional arguments.
     """
-
     _ = flct.flct(
         images_dat[0],
         images_dat[1],
