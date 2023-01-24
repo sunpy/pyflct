@@ -28,7 +28,6 @@ def test_two_read_write(arrays_test):
     This test is written to veify that the wrapped function is able to
     correctly write and read two numpy arrays.
     """
-
     # Here a temporary dat file is created and two numpy arrays are written in it.
     file_name = "temp.dat"
 
@@ -78,7 +77,6 @@ def test_three_read_write(arrays_test):
     This test is written to verify that the wrapped function is able to
     correctly write and read three numpy arrays.
     """
-
     # Here a temporary dat file is created and three numpy arrays are written in it.
     file_name = "temp.dat"
 
@@ -134,7 +132,6 @@ def test_swaps(arrays_test):
     they will be converted to binary format and read in column major or
     row major their values won't change.
     """
-
     # This is to change the order of two arrays at a time.
     result_a, result_b = column_row_of_two(arrays_test[0], arrays_test[1])
 

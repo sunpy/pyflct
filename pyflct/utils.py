@@ -35,7 +35,6 @@ def read_2_images(filename, order="row"):
     `tuple`
         A tuple containing two `~numpy.ndarray`.
     """
-
     # Checking whether the C extension is correctly built.
     if _pyflct is None:
         raise ImportError("C extension for flct is missing, please rebuild.")
@@ -79,7 +78,6 @@ def read_3_images(filename, order="row"):
     `tuple`
         A tuple containing three `~numpy.ndarray`.
     """
-
     # Checking whether the C extension is correctly built.
     if _pyflct is None:
         raise ImportError("C extension for flct is missing, please rebuild.")
@@ -117,7 +115,6 @@ def write_2_images(filename, array1, array2, order="row"):
         The order in which the array elements are stored that is whether they are stored as row
         major or column major. Defaults to "row".
     """
-
     # Checking whether the C extension is correctly built.
     if _pyflct is None:
         raise ImportError("C extension for flct is missing, please rebuild.")
@@ -154,7 +151,6 @@ def write_3_images(filename, array1, array2, array3, order="row"):
         The order in which the array elements are stored that is whether they are stored as row
         major or column major. Defaults to "row".
     """
-
     # Checking whether the C extension is correctly built.
     if _pyflct is None:
         raise ImportError("C extension for flct is missing, please rebuild.")
@@ -193,7 +189,6 @@ def column_row_of_two(array1, array2):
         It returns the two input arrays after changing their order from column major to
         row major.
     """
-
     # Checking whether the C extension is correctly built.
     if _pyflct is None:
         raise ImportError("C extension for flct is missing, please rebuild.")
@@ -225,7 +220,6 @@ def column_row_of_three(array1, array2, array3):
         It returns the two input arrays after changing their order from column major to
         row major.
     """
-
     # Checking whether the C extension is correctly built.
     if _pyflct is None:
         raise ImportError("C extension for flct is missing, please rebuild.")
