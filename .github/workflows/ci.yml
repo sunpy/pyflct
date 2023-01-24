@@ -1,9 +1,5 @@
 name: CI
 
-env:
-  CIBW_BEFORE_ALL_LINUX: "yum -y install fftw-devel && git clean -xfd -e wheelhouse"
-  CIBW_BEFORE_ALL_MACOS: "brew install fftw && git clean -xfd -e wheelhouse"
-
 on:
   push:
     branches:
@@ -83,9 +79,6 @@ jobs:
 
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish.yml@main
     with:
-      env: |
-        CIBW_BEFORE_ALL_LINUX: "yum -y install fftw-devel && git clean -xfd -e wheelhouse"
-        CIBW_BEFORE_ALL_MACOS: "brew install fftw && git clean -xfd -e wheelhouse"
       test_extras: 'dev'
       test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
       submodules: false
