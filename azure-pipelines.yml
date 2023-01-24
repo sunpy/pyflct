@@ -44,7 +44,7 @@ stages:
         default_python: '3.8'
         submodules: false
         coverage: codecov
-        toxdeps: tox-pypi-filter
+        toxdeps: "'tox<4' tox-pypi-filter"
         libraries:
           apt:
             - libfftw3-dev
@@ -60,7 +60,7 @@ stages:
         default_python: '3.8'
         submodules: false
         coverage: codecov
-        toxdeps: tox-pypi-filter
+        toxdeps: "'tox<4' tox-pypi-filter"
         libraries:
           apt:
             - libfftw3-dev
