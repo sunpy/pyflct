@@ -9,6 +9,17 @@ requires = [
 ]
 build-backend = 'setuptools.build_meta'
 
+[tool.cibuildwheel]
+test-requires = "pytest"
+test-command = "pytest -p no:warnings --doctest-rst --pyargs pyflct"
+test-extras = ['dev']
+
+[tool.cibuildwheel.linux]
+before-all = "yum -y install fftw-devel; git clean -xfd -e wheelhouse"
+
+[tool.cibuildwheel.macos]
+before-all = "brew install fftw; git clean -xfd -e wheelhouse"
+
 [tool.black]
 line-length = 120
 include = '\.pyi?$'
