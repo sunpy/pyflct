@@ -44,14 +44,12 @@ stages:
         default_python: '3.8'
         submodules: false
         coverage: codecov
-        toxdeps: tox-pypi-filter
+        toxdeps: "'tox<4' tox-pypi-filter"
         libraries:
           apt:
             - libfftw3-dev
-          brew:
-            - fftw
         envs:
-          - linux: py310
+          - linux: py311
 
   - stage: SecondPhaseTests
     displayName: Stage 2 Tests
@@ -62,7 +60,7 @@ stages:
         default_python: '3.8'
         submodules: false
         coverage: codecov
-        toxdeps: tox-pypi-filter
+        toxdeps: "'tox<4' tox-pypi-filter"
         libraries:
           apt:
             - libfftw3-dev
@@ -70,7 +68,8 @@ stages:
             - fftw
         envs:
           - macos: py38
-          - linux: py39-conda
+          - linux: py39
+          - linux: py310-conda
           - linux: build_docs
             posargs: " "
             pytest: false
@@ -94,7 +93,9 @@ stages:
             - wheels_cp38-manylinux*x86_64
             - wheels_cp39-manylinux*x86_64
             - wheels_cp310-manylinux*x86_64
+            - wheels_cp311-manylinux*x86_64
             - wheels_cp38-macosx*
             - wheels_cp39-macosx*
             - wheels_cp310-macosx*
+            - wheels_cp311-macosx*
             - sdist

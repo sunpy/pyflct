@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 
-import os  # isort:skip
-from itertools import chain  # isort:skip
+import os
+from itertools import chain
 
 from setuptools import setup  # isort:skip
-from setuptools.config import read_configuration  # isort:skip
+
 from extension_helpers import get_extensions  # isort:skip
+
+try:
+    # Recommended for setuptools 61.0.0+
+    # (though may disappear in the future)
+    from setuptools.config.setupcfg import read_configuration
+except ImportError:
+    from setuptools.config import read_configuration
 
 ################################################################################
 # Programmatically generate some extras combos.
@@ -23,8 +30,6 @@ extras["all"] = list(chain.from_iterable(ex_extras.values()))
 
 setup(
     extras_require=extras,
-    use_scm_version={
-        "write_to": os.path.join("pyflct", "_version.py"),
-    },
+    use_scm_version={"write_to": os.path.join("pyflct", "_version.py")},
     ext_modules=get_extensions(),
 )
