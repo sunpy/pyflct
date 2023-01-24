@@ -48,6 +48,7 @@ jobs:
       envs: |
         - macos: py38
         - linux: py310-conda
+        - linux: py39-conda
 
   docs:
     needs: [core]
@@ -61,6 +62,7 @@ jobs:
       libraries: |
         apt:
           - graphviz
+          - libfftw3-dev
       envs: |
         - linux: build_docs
 
