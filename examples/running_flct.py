@@ -1,10 +1,9 @@
 """
-===================================
-Fourier Local Correlation Tracking
+=================================== Fourier Local Correlation Tracking
 ===================================
 
-This example applies Fourier Local Correlation Tracking (FLCT)
-to a set of two arrays using `pyflct`.
+This example applies Fourier Local Correlation Tracking (FLCT) to a set
+of two arrays using `pyflct`.
 """
 
 import matplotlib.pyplot as plt
