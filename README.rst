@@ -15,7 +15,9 @@ Installing
 Linux and Mac OS
 ----------------
 
-The simplest way to install this library is through pip::
+The simplest way to install this library is through pip:
+
+.. code-block:: bash
 
     $ pip install pyflct
 
@@ -24,7 +26,7 @@ This will install the pre-compiled binary wheels for these two platforms.
 Windows
 -------
 
-We only officially support Windows through Anaconda.
+We only officially support Windows through Conda.
 But we do have rough instructions in our documentation if you want to install it manually.
 
 `Please find the instructions in our documentation <https://pyflct.readthedocs.io/en/latest/install.html>`__.
@@ -44,7 +46,9 @@ For more information on general contributing, please read our `contributing guid
 If you want help develop pyflct you will need to install it from GitHub.
 The best way to do this is to create a new python virtual environment (of your choice) and then fork this repository.
 
-Then::
+Then:
+
+.. code-block:: bash
 
     $ git clone https://github.com/<username>/pyflct.git
     $ cd pyflct
@@ -53,7 +57,9 @@ Then::
 You will need to install your operating system's FFTW3 development library.
 You might need to `pip install extension_helpers` if there is an error about it being missing.
 
-You can run::
+You can run:
+
+.. code-block:: bash
 
     $ python setup.py build_ext --inplace
 
@@ -71,7 +77,7 @@ This project is Copyright (c) The SunPy Developers and licensed under the terms 
 This package is based upon the `Openastronomy packaging guide <https://github.com/OpenAstronomy/packaging-guide>`__ which is licensed under the BSD 3-clause licence.
 
 .. _`Developer's Guide`: https://docs.sunpy.org/en/latest/dev_guide/index.html
-.. _`#sunpy:matrix.org`: https://riot.im/app/#/room/#sunpy:matrix.org
+.. _`#sunpy:matrix.org`: https://app.element.io/#/room/#sunpy:openastronomy.org
 .. _issues page: https://github.com/sunpy/pyflct/issues
-.. _contributing guide: https://docs.sunpy.org/en/latest/dev_guide/newcomers.html#newcomers
-.. _Code of Conduct.: https://docs.sunpy.org/en/stable/coc.html
+.. _contributing guide: https://docs.sunpy.org/en/latest/dev_guide/contents/newcomers.html
+.. _Code of Conduct.: https://sunpy.org/coc.html
