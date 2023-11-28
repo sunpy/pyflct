@@ -1,0 +1,14 @@
+channels:
+  - conda-forge
+dependencies:
+  - cython
+  - extension-helpers
+  - fftw
+  - numpy
+  - packaging
+  - pip
+  - pytest
+  - pytest-cov
+  - python_abi
+  - setuptools
+  - setuptools-scm
