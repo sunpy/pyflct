@@ -3,14 +3,14 @@ name: CI
 on:
   push:
     branches:
-      - 'main'
-      - '*.*'
-      - '!*backport*'
+      - "main"
+      - "*.*"
+      - "!*backport*"
     tags:
-      - 'v*'
-      - '!*dev*'
-      - '!*pre*'
-      - '!*post*'
+      - "v*"
+      - "!*dev*"
+      - "!*pre*"
+      - "!*post*"
   pull_request:
   workflow_dispatch:
 
@@ -22,40 +22,69 @@ jobs:
   core:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
+      default_python: "3.11"
       submodules: false
       coverage: codecov
-      toxdeps: "'tox<4' tox-pypi-filter"
+      toxdeps: tox-pypi-filter
       libraries: |
         apt:
           - libfftw3-dev
       envs: |
         - linux: py311
 
-  test:
+  tests:
     needs: [core]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
+      default_python: "3.11"
       submodules: false
       coverage: codecov
-      toxdeps: "'tox<4' tox-pypi-filter"
+      toxdeps: tox-pypi-filter
       libraries: |
         apt:
           - libfftw3-dev
         brew:
           - fftw
       envs: |
-        - macos: py38
-        - linux: py310-conda
-        - linux: py39-conda
+        - macos: py39
+        - linux: py310
+
+  conda-linux:
+    needs: [core]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: pyflct-test
+          environment-file: pyflct-env.yml
+          python-version: 3.11
+      - name: Install pyflct
+        shell: bash -el {0}
+        run: |
+          pip install --no-deps --no-build-isolation .
+      - name: Run tests
+        shell: bash -el {0}
+        run: |
+          conda list
+          cd /tmp
+          pytest -vvv -r a --pyargs pyflct --cov-report=xml --cov=pyflct --cov-config=$GITHUB_WORKSPACE/setup.cfg $GITHUB_WORKSPACE/docs
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
 
   docs:
     needs: [core]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
-      default_python: '3.8'
+      default_python: "3.11"
       submodules: false
       pytest: false
-      toxdeps: "'tox<4' tox-pypi-filter"
+      toxdeps: tox-pypi-filter
       cache-key: docs-${{ github.run_id }}
       libraries: |
         apt:
@@ -75,17 +104,14 @@ jobs:
         github.event_name == 'pull_request' &&
         contains(github.event.pull_request.labels.*.name, 'Run publish')
       )
-    needs: [test]
-
+    needs: [tests]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish.yml@main
     with:
-      test_extras: 'dev'
+      test_extras: "dev"
       test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
       submodules: false
       libraries: libfftw3-dev
       targets: |
-        - cp38-manylinux*_x86_64
-        - cp38-macosx_x86_64
         - cp39-manylinux*_x86_64
         - cp39-macosx_x86_64
         - cp310-manylinux*_x86_64
