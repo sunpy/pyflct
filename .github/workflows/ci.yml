@@ -57,7 +57,7 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v3
         with:
           activate-environment: pyflct-test
           environment-file: pyflct-env.yml
