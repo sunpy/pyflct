@@ -27,11 +27,59 @@ jobs:
       submodules: false
       libraries: libfftw3-dev
       targets: |
-        - cp39-manylinux*_x86_64
-        - cp39-macosx_x86_64
-        # - cp310-manylinux*_x86_64
-        # - cp310-macosx_x86_64
-        # - cp311-manylinux*_x86_64
-        # - cp311-macosx_x86_64
+        - cp3{9,10,11}-manylinux*_x86_64
+        - cp3{9,10,11}-macosx_x86_64
     secrets:
       pypi_token: ${{ secrets.pypi_token }}
+
+  build_windows_wheels:
+    name: Build ${{ matrix.cibw_python }}-win${{ matrix.cibw_arch }} wheel on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022]
+        cibw_python: ["cp39"]
+        cibw_arch: ["_amd64"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        name: Install Python
+        with:
+          python-version: '3.11'
+      - name: Install cibuildwheel
+        run: |
+          python -m pip install cibuildwheel
+      - name: Download FFTW libraries
+        run: |
+          Write-Output "Downloading FFTW release (64-bit)"
+          Invoke-WebRequest -Uri "https://fftw.org/pub/fftw/fftw-3.3.5-dll64.zip" -OutFile "${{ github.workspace }}\fftw64.zip"
+          Write-Output "Unzipping 64-bit FFTW release"
+          Expand-Archive -Path "${{ github.workspace }}\fftw64.zip" -DestinationPath "${{ github.workspace }}\fftw64"
+        shell: powershell
+      - name: Setup Visual Code build tools (64-bit)
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: amd64
+      - name: Convert .def files to .lib
+        run: |
+          lib.exe /def:${{ github.workspace }}\fftw64\libfftw3-3.def /out:${{ github.workspace }}\fftw64\libfftw3-3.lib /machine:x64
+          lib.exe /def:${{ github.workspace }}\fftw64\libfftw3f-3.def /out:${{ github.workspace }}\fftw64\libfftw3f-3.lib /machine:x64
+          lib.exe /def:${{ github.workspace }}\fftw64\libfftw3l-3.def /out:${{ github.workspace }}\fftw64\libfftw3l-3.lib /machine:x64
+      - name: Build Windows wheels
+        env:
+          ARCHITECTURE_BIT: '64'
+          CIBW_BUILD: ${{ matrix.cibw_python }}-win${{ matrix.cibw_arch }}
+          CIBW_BEFORE_BUILD: >-
+            (robocopy
+            ${{ github.workspace }}\fftw64
+            ${{ github.workspace }}\pyfftw /V /S /E)
+            ^& exit 0
+        run: |
+          python -m cibuildwheel --output-dir dist
+      - uses: actions/upload-artifact@v2
+        name: Upload wheels as artifacts
+        if: ${{ github.event_name != 'pull_request' }}
+        with:
+          name: wheels
+          path: ./dist/*.whl

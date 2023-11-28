@@ -21,11 +21,6 @@ before-all = "yum -y install fftw-devel; git clean -xfd -e dist"
 [tool.cibuildwheel.macos]
 before-all = "brew install fftw; git clean -xfd -e dist"
 
-[tool.cibuildwheel.windows]
-before-all = "conda.exe install fftw; git clean -xfd -e dist"
-before-build = "pip install delvewheel"
-repair-wheel-command = "delvewheel repair --add-path %CONDA%\\Library\\bin -w {dest_dir} {wheel}"
-
 [tool.black]
 line-length = 120
 include = '\.pyi?$'
