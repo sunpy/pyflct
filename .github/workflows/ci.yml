@@ -72,7 +72,7 @@ jobs:
           conda list
           cd /tmp
           pytest -vvv -r a --pyargs pyflct --cov-report=xml --cov=pyflct --cov-config=$GITHUB_WORKSPACE/setup.cfg $GITHUB_WORKSPACE/docs
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
