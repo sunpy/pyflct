@@ -116,5 +116,5 @@ jobs:
         - cp311-macosx_x86_64
         - cp312-manylinux*_x86_64
         - cp312-macosx_x86_64
-        secrets:
+    secrets:
       pypi_token: ${{ secrets.pypi_token }}
