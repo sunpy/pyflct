@@ -1,5 +1,6 @@
 import os
 import sys
+import subprocess
 from glob import glob
 from collections import defaultdict
 from distutils.core import Extension
@@ -18,15 +19,19 @@ def get_extensions():
     cfg["sources"].extend(sorted(glob(os.path.join("cextern", "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
-    cfg["libraries"].append("fftw3")
-
+    if sys.platform not in ["win32", "darwin"]:
+        cfg["libraries"].append("fftw3")
     if get_compiler() == "msvc":
         # Anaconda paths
         cfg["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
         cfg["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
     else:
         cfg["libraries"].append("m")
+        if sys.platform == "darwin":
+            brew_path = (
+                subprocess.run(["brew", "--prefix"], stdout=subprocess.PIPE).stdout.decode("utf-8").replace("\n", "")
+            )
+            cfg["include_dirs"].append(f"{brew_path}/include/")
         cfg["include_dirs"].append("/usr/include/")
-        cfg["extra_compile_args"].extend(["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"])
-
+        cfg["extra_compile_args"].extend(["-O3", "-w", "-fomit-frame-pointer", "-fPIC"])
     return [Extension("pyflct._flct", **cfg)]
