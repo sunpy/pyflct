@@ -1,33 +1,11 @@
 """
 Configuration file for the Sphinx documentation builder.
-
-isort:skip_file
 """
-
-# flake8: NOQA: E402
 
 # -- stdlib imports ------------------------------------------------------------
 import os
-import sys
 import datetime
-from pkg_resources import get_distribution
 from packaging.version import Version
-
-# -- Check for dependencies ----------------------------------------------------
-
-doc_requires = get_distribution("pyflct").requires(extras=("docs",))
-missing_requirements = []
-for requirement in doc_requires:
-    try:
-        get_distribution(requirement)
-    except Exception as e:
-        missing_requirements.append(requirement.name)
-if missing_requirements:
-    print(
-        f"The {' '.join(missing_requirements)} package(s) could not be found and "
-        "is needed to build the documentation, please install the 'docs' requirements."
-    )
-    sys.exit(1)
 
 # -- Read the Docs Specific Configuration --------------------------------------
 
@@ -41,7 +19,7 @@ if on_rtd:
     os.environ["HIDE_PARFIVE_PROGESS"] = "True"
 
 # -- Non stdlib imports --------------------------------------------------------
-from pyflct import __version__  # NOQA
+from pyflct import __version__
 
 # -- Project information -------------------------------------------------------
 project = "pyflct"
@@ -168,8 +146,9 @@ intersphinx_mapping = {
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
+html_theme = "sunpy"
 
-from sunpy_sphinx_theme.conf import *  # NOQA
+from sunpy_sphinx_theme import PNG_ICON
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -189,16 +168,13 @@ graphviz_dot_args = [
 ]
 
 # -- Sphinx Gallery ------------------------------------------------------------
-from sphinx_gallery.sorting import ExampleTitleSortKey
-
 sphinx_gallery_conf = {
     "backreferences_dir": os.path.join("generated", "modules"),
     "filename_pattern": "^((?!skip_).)*$",
     "examples_dirs": os.path.join("..", "examples"),
-    "within_subsection_order": ExampleTitleSortKey,
+    "within_subsection_order": "ExampleTitleSortKey",
     "gallery_dirs": os.path.join("generated", "gallery"),
-    # Comes from the theme.
-    "default_thumb_file": png_icon,
+    "default_thumb_file": PNG_ICON,
     "abort_on_example_error": False,
     "plot_gallery": "True",
     "remove_config_comments": True,

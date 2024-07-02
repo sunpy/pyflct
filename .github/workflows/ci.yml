@@ -44,8 +44,13 @@ jobs:
         brew:
           - fftw
       envs: |
-        - macos: py310
-        - linux: py311
+        # Mac Arm
+        - macos: py311
+          runs-on: macos-latest
+        # Mac Intel
+        - macos: py311
+          runs-on: macos-12
+        - linux: py310
 
   conda-linux:
     needs: [core]
@@ -110,11 +115,14 @@ jobs:
       submodules: false
       libraries: libfftw3-dev
       targets: |
-        - cp310-manylinux*_x86_64
+        - cp310-macosx_arm64
         - cp310-macosx_x86_64
-        - cp311-manylinux*_x86_64
+        - cp310-manylinux*_x86_64
+        - cp311-macosx_arm64
         - cp311-macosx_x86_64
-        - cp312-manylinux*_x86_64
+        - cp311-manylinux*_x86_64
+        - cp312-macosx_arm64
         - cp312-macosx_x86_64
-        secrets:
+        - cp312-manylinux*_x86_64
+    secrets:
       pypi_token: ${{ secrets.pypi_token }}

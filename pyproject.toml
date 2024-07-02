@@ -1,10 +1,10 @@
 [build-system]
 requires = [
-  "cython",
+  "cython>=3.0.0",
   "extension-helpers",
-  "oldest-supported-numpy",
-  "setuptools>=56,!=61.0.0",
-  "setuptools_scm[toml]>=6.2",
+  "numpy>=2.0.0",
+  "setuptools_scm>=7.0",
+  "setuptools>=69",
   "wheel",
 ]
 build-backend = 'setuptools.build_meta'

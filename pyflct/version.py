@@ -11,7 +11,6 @@ except Exception:
 
     warnings.warn(f'could not determine {__name__.split(".")[0]} package version; this indicates a broken installation')
     del warnings
-
     version = "0.0.0"
 
 from packaging.version import parse as _parse
