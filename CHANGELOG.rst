@@ -1,3 +1,23 @@
+0.3.0 (2024-07-23)
+==================
+
+Backwards Incompatible Changes
+------------------------------
+
+- Update to wheels:
+
+  Linux base goes from manylinux2014 to manylinux_2_28
+  macOS base goes from 10.9 to 12.0 (`#74 <https://github.com/sunpy/pyflct/pull/74>`__)
+- Dropped Python 3.9 support. (`#74 <https://github.com/sunpy/pyflct/pull/74>`__)
+
+
+Features
+--------
+
+- Added Python 3.12 wheels. (`#74 <https://github.com/sunpy/pyflct/pull/74>`__)
+- Build with numpy 2.0.0 as the base. (`#74 <https://github.com/sunpy/pyflct/pull/74>`__)
+
+
 0.2.4 (2023-11-27)
 ==================
 
