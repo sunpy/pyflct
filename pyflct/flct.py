@@ -1,6 +1,6 @@
 import numpy as np
 
-from .utils import column_row_of_two
+from pyflct.utils import column_row_of_two
 
 try:
     from pyflct import _flct as _pyflct

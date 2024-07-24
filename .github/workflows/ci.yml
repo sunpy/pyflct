@@ -22,7 +22,6 @@ jobs:
   core:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
-      default_python: "3.11"
       submodules: false
       coverage: codecov
       toxdeps: tox-pypi-filter
@@ -30,13 +29,12 @@ jobs:
         apt:
           - libfftw3-dev
       envs: |
-        - linux: py311
+        - linux: py312
 
   tests:
     needs: [core]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
-      default_python: "3.11"
       submodules: false
       coverage: codecov
       toxdeps: tox-pypi-filter
@@ -46,7 +44,12 @@ jobs:
         brew:
           - fftw
       envs: |
-        - macos: py39
+        # Mac Arm
+        #- macos: py311
+        #  runs-on: macos-latest
+        # Mac Intel
+        - macos: py311
+          runs-on: macos-12
         - linux: py310
 
   conda-linux:
@@ -61,7 +64,7 @@ jobs:
         with:
           activate-environment: pyflct-test
           environment-file: pyflct-env.yml
-          python-version: 3.11
+          python-version: 3.12
       - name: Install pyflct
         shell: bash -el {0}
         run: |
@@ -81,7 +84,7 @@ jobs:
     needs: [core]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
     with:
-      default_python: "3.11"
+      default_python: "3.12"
       submodules: false
       pytest: false
       toxdeps: tox-pypi-filter
@@ -107,16 +110,19 @@ jobs:
     needs: [tests]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/publish.yml@main
     with:
-      test_extras: "dev"
+      test_extras: "test"
       test_command: 'pytest -p no:warnings --doctest-rst -m "not mpl_image_compare" --pyargs pyflct'
       submodules: false
       libraries: libfftw3-dev
       targets: |
-        - cp39-manylinux*_x86_64
-        - cp39-macosx_x86_64
-        - cp310-manylinux*_x86_64
+        #- cp310-macosx_arm64
         - cp310-macosx_x86_64
-        - cp311-manylinux*_x86_64
+        - cp310-manylinux_x86_64
+        #- cp311-macosx_arm64
         - cp311-macosx_x86_64
+        - cp311-manylinux_x86_64
+        #- cp312-macosx_arm64
+        - cp312-macosx_x86_64
+        - cp312-manylinux_x86_64
     secrets:
       pypi_token: ${{ secrets.pypi_token }}

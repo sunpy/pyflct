@@ -1,5 +1,7 @@
 import os
 import sys
+import platform
+import subprocess
 from glob import glob
 from collections import defaultdict
 from distutils.core import Extension
@@ -18,15 +20,21 @@ def get_extensions():
     cfg["sources"].extend(sorted(glob(os.path.join("cextern", "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
-    cfg["libraries"].append("fftw3")
 
-    if get_compiler() == "msvc":
+    if get_compiler().lower() == "msvc":
         # Anaconda paths
         cfg["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
         cfg["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
     else:
         cfg["libraries"].append("m")
-        cfg["include_dirs"].append("/usr/include/")
-        cfg["extra_compile_args"].extend(["-O3", "-Wall", "-fomit-frame-pointer", "-fPIC"])
-
+        # We assume we have brew installed on Mac OS to provide FFTW3
+        if platform.system().lower() == "darwin":
+            brew_path = (
+                subprocess.run(["brew", "--prefix"], stdout=subprocess.PIPE).stdout.decode("utf-8").replace("\n", "")
+            )
+            cfg["include_dirs"].append(f"{brew_path}/include")
+        cfg["libraries"].append("fftw3")
+        cfg["include_dirs"].append("/usr/include")
+        cfg["include_dirs"].append("/usr/local/include")
+        cfg["extra_compile_args"].extend(["-O3", "-w", "-fomit-frame-pointer", "-fPIC"])
     return [Extension("pyflct._flct", **cfg)]
