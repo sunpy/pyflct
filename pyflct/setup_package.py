@@ -20,7 +20,6 @@ def get_extensions():
     cfg["sources"].extend(sorted(glob(os.path.join("cextern", "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
-
     if get_compiler().lower() == "msvc":
         # Anaconda paths
         cfg["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
@@ -29,9 +28,19 @@ def get_extensions():
         cfg["libraries"].append("m")
         # We assume we have brew installed on Mac OS to provide FFTW3
         if platform.system().lower() == "darwin":
-            brew_path = (
-                subprocess.run(["brew", "--prefix"], stdout=subprocess.PIPE).stdout.decode("utf-8").replace("\n", "")
-            )
+            try:
+                brew_path = (
+                    subprocess.run(["brew", "--prefix"], stdout=subprocess.PIPE)
+                    .stdout.decode("utf-8")
+                    .replace("\n", "")
+                )
+            except FileNotFoundError:
+                # If we are on conda-forge build environment, we need to use the conda_mangled brew
+                brew_path = (
+                    subprocess.run(["/usr/local/conda_mangled/sbin/brew", "--prefix"], stdout=subprocess.PIPE)
+                    .stdout.decode("utf-8")
+                    .replace("\n", "")
+                )
             cfg["include_dirs"].append(f"{brew_path}/include")
         cfg["libraries"].append("fftw3")
         cfg["include_dirs"].append("/usr/include")
