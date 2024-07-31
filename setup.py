@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import os
 from itertools import chain
 
 from setuptools import setup  # isort:skip
@@ -30,6 +29,5 @@ extras["all"] = list(chain.from_iterable(ex_extras.values()))
 
 setup(
     extras_require=extras,
-    use_scm_version={"write_to": os.path.join("pyflct", "_version.py")},
     ext_modules=get_extensions(),
 )

@@ -8,7 +8,5 @@ dependencies:
   - packaging
   - pip
   - pytest
-  - pytest-cov
-  - python_abi
   - setuptools
   - setuptools-scm

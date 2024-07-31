@@ -1,3 +1,11 @@
+0.3.1 (2024-07-31)
+==================
+
+Bugfixes
+--------
+
+- Tried to fix builds on conda-forge. (`#80 <https://github.com/sunpy/pyflct/pull/80>`__)
+
 0.3.0 (2024-07-23)
 ==================
 

@@ -44,9 +44,6 @@ jobs:
         brew:
           - fftw
       envs: |
-        # Mac Arm
-        #- macos: py311
-        #  runs-on: macos-latest
         # Mac Intel
         - macos: py311
           runs-on: macos-12
@@ -74,11 +71,74 @@ jobs:
         run: |
           conda list
           cd /tmp
-          pytest -vvv -r a --pyargs pyflct --cov-report=xml --cov=pyflct --cov-config=$GITHUB_WORKSPACE/setup.cfg $GITHUB_WORKSPACE/docs
-      - uses: codecov/codecov-action@v4
+          pytest -vvv -r a --pyargs pyflct
+
+  # This checks that the package can be installed and run on a Mac
+  # without using brew
+  conda-mac:
+    needs: [core]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage.xml
+          fetch-depth: 0
+          lfs: true
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: pyflct-test
+          environment-file: pyflct-env.yml
+          python-version: 3.12
+      - name: Install pyflct
+        shell: bash -el {0}
+        run: |
+          pip install --no-deps --no-build-isolation .
+      - name: Run tests
+        shell: bash -el {0}
+        run: |
+          conda list
+          cd /tmp
+          pytest -vvv -r a --pyargs pyflct
+
+  failing_mac_arm:
+    needs: [core]
+    uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
+    with:
+      submodules: false
+      coverage: codecov
+      toxdeps: tox-pypi-filter
+      libraries: |
+        brew:
+          - fftw
+      envs: |
+        # Mac Arm
+        - macos: py312
+          runs-on: macos-latest
+        # Linux Arm
+        # TODO: Workout how to add
+
+  conda-windows:
+    needs: [core]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: pyflct-test
+          environment-file: pyflct-env.yml
+          python-version: 3.12
+      - name: Install pyflct
+        shell: bash -el {0}
+        run: |
+          pip install --no-deps --no-build-isolation .
+      - name: Run tests
+        shell: bash -el {0}
+        run: |
+          conda list
+          cd /tmp
+          pytest -vvv -r a --pyargs pyflct
 
   docs:
     needs: [core]
