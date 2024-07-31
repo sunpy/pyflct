@@ -11,19 +11,19 @@ from extension_helpers import get_compiler
 
 ROOT = os.path.dirname(__file__)
 
-
 def get_extensions():
     cfg = defaultdict(list)
     cfg["include_dirs"].append(np.get_include())
-    cfg["include_dirs"].append(os.path.join(sys.prefix, "include"))
     cfg["include_dirs"].append(os.path.join("cextern"))
     cfg["sources"].extend(sorted(glob(os.path.join("cextern", "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "*.c"))))
     cfg["sources"].extend(sorted(glob(os.path.join(ROOT, "flct.pyx"))))
+    cfg["libraries"].append("fftw3")
     if get_compiler().lower() == "msvc":
-        # Anaconda paths
-        cfg["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
-        cfg["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
+        # Conda paths based on sys.base_prefix
+        cfg["include_dirs"].append(os.path.join(sys.base_prefix, "Library", "include"))
+        cfg["library_dirs"].append(os.path.join(sys.base_prefix, "Library", "lib"))
+        cfg["extra_compile_args"].extend(["/w"])
     else:
         cfg["libraries"].append("m")
         # We assume we have brew installed on Mac OS to provide FFTW3
@@ -42,8 +42,7 @@ def get_extensions():
                     .replace("\n", "")
                 )
             cfg["include_dirs"].append(f"{brew_path}/include")
-        cfg["libraries"].append("fftw3")
-        cfg["include_dirs"].append("/usr/include")
-        cfg["include_dirs"].append("/usr/local/include")
+        cfg["include_dirs"].append(os.path.join(sys.prefix, "include"))
+        cfg["include_dirs"].append(os.path.join(sys.prefix, "local", "include"))
         cfg["extra_compile_args"].extend(["-O3", "-w", "-fomit-frame-pointer", "-fPIC"])
     return [Extension("pyflct._flct", **cfg)]
