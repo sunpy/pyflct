@@ -156,7 +156,6 @@ def flct(
     * Fisher & Welsch, PASP 383, 373, (2008)
     * Fisher et al., ApJS, accepted (2020)
     """
-
     # Checking whether the C extension is correctly built.
     if _pyflct is None:
         raise ImportError("C extension for flct is missing, please rebuild.")
