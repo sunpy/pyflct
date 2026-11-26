@@ -4,6 +4,7 @@ repos:
     hooks:
       - id: docformatter
         args: [--in-place, --pre-summary-newline, --make-summary-multi]
+        exclude: ^examples/
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.4.0
     hooks:

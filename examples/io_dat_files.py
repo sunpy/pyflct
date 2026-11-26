@@ -1,5 +1,6 @@
 """
-================================== Input/Output of dat files for FLCT
+==================================
+Input/Output of dat files for FLCT
 ==================================
 
 This example demonstrates the use of functions in `pyflct.utils` to read
