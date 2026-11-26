@@ -97,7 +97,7 @@ jobs:
         run: |
           conda list
           cd /tmp
-          pytest -vvv -r a --pyargs pyflct
+          pytest -c "$GITHUB_WORKSPACE/setup.cfg" -vvv -r a --pyargs pyflct
 
   failing_mac_arm:
     needs: [core]
@@ -138,7 +138,7 @@ jobs:
         run: |
           conda list
           cd /tmp
-          pytest -vvv -r a --pyargs pyflct
+          pytest -c "$GITHUB_WORKSPACE/setup.cfg" -vvv -r a --pyargs pyflct
 
   docs:
     needs: [core]
