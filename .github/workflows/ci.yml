@@ -77,7 +77,7 @@ jobs:
   # without using brew
   conda-mac:
     needs: [core]
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v5
         with:
