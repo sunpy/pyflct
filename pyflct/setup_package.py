@@ -44,6 +44,7 @@ def get_extensions():
                         .replace("\n", "")
                     )
                     cfg["include_dirs"].append(f"{brew_path}/include")
+                    cfg["library_dirs"].append(f"{brew_path}/lib")
                     break
                 except FileNotFoundError:
                     continue
