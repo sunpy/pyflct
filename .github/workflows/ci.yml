@@ -46,7 +46,7 @@ jobs:
       envs: |
         # Mac Intel
         - macos: py311
-          runs-on: macos-12
+          runs-on: macos-latest
         - linux: py310
 
   conda-linux:
