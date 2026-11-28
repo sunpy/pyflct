@@ -27,6 +27,9 @@ def get_extensions():
     cfg["library_dirs"].append(os.path.join(sys.base_prefix, "Library", "lib"))
     if get_compiler().lower() == "msvc":
         cfg["extra_compile_args"].extend(["/w"])
+        # NumPy 2 headers include <complex.h>, which makes fftw3.h use C99 _Complex.
+        # MSVC does not support _Complex, so force FFTW's plain double[2] type.
+        cfg["define_macros"].append(("FFTW_NO_Complex", None))
     else:
         cfg["libraries"].append("m")
         # We assume we have brew installed on Mac OS to provide FFTW3
@@ -41,6 +44,7 @@ def get_extensions():
                         .replace("\n", "")
                     )
                     cfg["include_dirs"].append(f"{brew_path}/include")
+                    cfg["library_dirs"].append(f"{brew_path}/lib")
                     break
                 except FileNotFoundError:
                     continue

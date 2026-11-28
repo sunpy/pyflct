@@ -3,8 +3,8 @@
 Input/Output of dat files for FLCT
 ==================================
 
-This example demonstrates the use of functions in `pyflct.utils`
-to read and write arrays to binary ``dat`` files.
+This example demonstrates the use of functions in `pyflct.utils` to read
+and write arrays to binary ``dat`` files.
 """
 
 import numpy as np
