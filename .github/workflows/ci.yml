@@ -21,9 +21,11 @@ concurrency:
 jobs:
   core:
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
+    permissions:
+      id-token: write
     with:
       submodules: false
-      coverage: codecov
+      coverage: codecov-oidc
       toxdeps: tox-pypi-filter
       libraries: |
         apt:
@@ -34,9 +36,11 @@ jobs:
   tests:
     needs: [core]
     uses: OpenAstronomy/github-actions-workflows/.github/workflows/tox.yml@main
+    permissions:
+      id-token: write
     with:
       submodules: false
-      coverage: codecov
+      coverage: codecov-oidc
       toxdeps: tox-pypi-filter
       libraries: |
         apt:
